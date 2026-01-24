@@ -8,7 +8,7 @@ import {
 import { toolbar } from './toolbar.js';
 import 'katex/dist/katex.min.css';
 import './styles.css';
-import exampleContent from '../example.md?raw';
+import exampleContent from './public/example.md?raw';
 
 // Create the editor
 const container = document.getElementById('app');
