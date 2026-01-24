@@ -53,7 +53,8 @@
     "@codemirror/language": "^6.12.1",
     "@lezer/highlight": "^1.2.3",
     "katex": "^0.16.27",
-    "marked": "^14.0.0"
+    "marked": "^14.0.0",
+    "mermaid": "^11.12.2"
   },
   "devDependencies": {
     "@codemirror/commands": "^6.6.0",
