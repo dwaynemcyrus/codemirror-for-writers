@@ -13,7 +13,7 @@ Try it live: [**Live Demo**](https://tiagosimoes.github.io/codemirror-markdown-h
 ## Install
 
 ```bash
-npm install codemirror-markdown-hybrid
+npm install codemirror-markdown-hybrid @codemirror/state @codemirror/view
 ```
 
 ## Usage
