@@ -71,6 +71,18 @@ $$
 
 Supported emoji shortcodes: :smile: :heart: :rocket: :tada:
 
+### Mermaid Diagrams
+
+```mermaid
+flowchart LR
+    A[Markdown is awesome] --> B[CodeMirror is amazing]
+    B --> C{Line is focused?}
+    C -->|Yes| D[Show as Markdown]
+    C -->|No| E[Show as Preview]
+    D --> F[Even better read/write experience]
+    E --> F
+```
+
 ---
 
 *Click on any line to edit it!*
