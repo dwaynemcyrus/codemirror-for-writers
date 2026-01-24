@@ -127,7 +127,7 @@ class MarkdownPreviewWidget extends WidgetType {
  * Get the set of line numbers that contain the cursor or selection
  * Only returns focused lines when the editor is truly being edited (unless bypassFocusCheck is true)
  * @param {EditorState} state - The editor state
- * @param {EditorView|boolean} viewOrBypass - Either the view object for focus checking, or true to bypass focus check and always return focused lines based on selection
+ * @param {EditorView|true} viewOrBypass - Either the view object for focus checking, or true to bypass focus check and always return focused lines based on selection
  */
 function getFocusedLines(state, viewOrBypass) {
   const focused = new Set();
