@@ -30,13 +30,8 @@ const state = EditorState.create({
     // The main hybrid markdown extension
     hybridMarkdown({ theme: 'light' }),
 
-    // Optional: Add the toolbar with toggle callbacks
+    // Optional: Add the toolbar with toggle callback
     toolbar({
-      onToggleTheme: (view) => {
-        const isDark = toggleTheme(view);
-        document.body.classList.toggle('dark-mode', isDark);
-        return isDark;
-      },
       onToggleMode: (view) => {
         const isHybrid = toggleHybridMode(view);
         document.body.classList.toggle('raw-mode', !isHybrid);

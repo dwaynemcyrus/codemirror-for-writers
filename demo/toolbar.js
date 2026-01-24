@@ -34,8 +34,7 @@ const toolbarButtons = [
 /**
  * Create toolbar DOM element
  * @param {EditorView} view - The editor view
- * @param {Object} callbacks - Optional callbacks for theme/mode toggle
- * @param {Function} callbacks.onToggleTheme - Called when theme toggle is clicked
+ * @param {Object} callbacks - Optional callbacks for mode toggle
  * @param {Function} callbacks.onToggleMode - Called when mode toggle is clicked
  */
 function createToolbarDOM(view, callbacks = {}) {
@@ -70,14 +69,10 @@ function createToolbarDOM(view, callbacks = {}) {
     toolbar.appendChild(btn);
   });
 
-  // Add spacer to push toggle buttons to the right
+  // Add spacer to push toggle button to the right
   const spacer = document.createElement('div');
   spacer.className = 'cm-md-toolbar-spacer';
   toolbar.appendChild(spacer);
-
-  // Track state for theme button updates
-  let themeBtn = null;
-  let isRawMode = false;
 
   // Add mode toggle button (pressed = raw mode)
   if (callbacks.onToggleMode) {
@@ -88,30 +83,10 @@ function createToolbarDOM(view, callbacks = {}) {
     modeBtn.addEventListener('click', (e) => {
       e.preventDefault();
       const isHybrid = callbacks.onToggleMode(view);
-      isRawMode = !isHybrid;
-      modeBtn.classList.toggle('cm-md-toolbar-btn-pressed', isRawMode);
-      // Theme button state stays the same since mode toggle also toggles theme,
-      // preserving the default/inverted pairing relationship
+      modeBtn.classList.toggle('cm-md-toolbar-btn-pressed', !isHybrid);
       view.focus();
     });
     toolbar.appendChild(modeBtn);
-  }
-
-  // Add theme toggle button (pressed = inverted from default)
-  if (callbacks.onToggleTheme) {
-    themeBtn = document.createElement('button');
-    themeBtn.className = 'cm-md-toolbar-btn';
-    themeBtn.textContent = '\u25D1'; // ◑ half circle icon
-    themeBtn.title = 'Dark Mode';
-    themeBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const isDark = callbacks.onToggleTheme(view);
-      // In preview mode: pressed = dark, In raw mode: pressed = light (inverted)
-      const shouldBePressed = isRawMode ? !isDark : isDark;
-      themeBtn.classList.toggle('cm-md-toolbar-btn-pressed', shouldBePressed);
-      view.focus();
-    });
-    toolbar.appendChild(themeBtn);
   }
 
   return toolbar;
@@ -211,15 +186,14 @@ export const toolbarTheme = EditorView.baseTheme({
  * Create a toolbar extension for the hybrid markdown editor
  *
  * @param {Object} options - Toolbar options
- * @param {Function} [options.onToggleTheme] - Callback for theme toggle, receives view, should return true if now dark
  * @param {Function} [options.onToggleMode] - Callback for mode toggle, receives view, should return true if now hybrid
  * @returns {Extension[]} Array of extensions including panel and styles
  */
 export function toolbar(options = {}) {
-  const { onToggleTheme, onToggleMode } = options;
+  const { onToggleMode } = options;
 
   const panelPlugin = showPanel.of((view) => {
-    const dom = createToolbarDOM(view, { onToggleTheme, onToggleMode });
+    const dom = createToolbarDOM(view, { onToggleMode });
     return { dom, top: true };
   });
 
