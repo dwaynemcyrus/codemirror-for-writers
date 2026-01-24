@@ -1,5 +1,5 @@
 import { EditorView, showPanel } from '@codemirror/view';
-import { actions } from '../extensions/actions.js';
+import { actions } from '../lib/index.js';
 
 /**
  * Toolbar button configuration
@@ -214,17 +214,6 @@ export const toolbarTheme = EditorView.baseTheme({
  * @param {Function} [options.onToggleTheme] - Callback for theme toggle, receives view, should return true if now dark
  * @param {Function} [options.onToggleMode] - Callback for mode toggle, receives view, should return true if now hybrid
  * @returns {Extension[]} Array of extensions including panel and styles
- *
- * @example
- * import { hybridMarkdown, toolbar, toggleTheme, toggleHybridMode } from 'codemirror-markdown-hybrid';
- *
- * const extensions = [
- *   ...hybridMarkdown(),
- *   ...toolbar({
- *     onToggleTheme: toggleTheme,
- *     onToggleMode: toggleHybridMode,
- *   }),
- * ];
  */
 export function toolbar(options = {}) {
   const { onToggleTheme, onToggleMode } = options;

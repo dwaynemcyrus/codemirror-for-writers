@@ -2,10 +2,10 @@ import { EditorState } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import {
   hybridMarkdown,
-  toolbar,
   toggleTheme,
   toggleHybridMode,
 } from '../lib/index.js';
+import { toolbar } from './toolbar.js';
 import 'katex/dist/katex.min.css';
 import './styles.css';
 import exampleContent from '../example.md?raw';
