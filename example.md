@@ -74,7 +74,7 @@ Supported emoji shortcodes: :smile: :heart: :rocket: :tada:
 ### Mermaid Diagrams
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#f5f5f5', 'secondaryColor': '#f5f5f5', 'tertiaryColor': '#f5f5f5', 'edgeLabelBackground': '#f5f5f5', 'primaryBorderColor': 'transparent', 'secondaryBorderColor': 'transparent', 'tertiaryBorderColor': 'transparent', 'lineColor': '#ccc' }}}%%
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#f5f5f5', 'secondaryColor': '#f5f5f5', 'tertiaryColor': '#f5f5f5', 'edgeLabelBackground': '#fff', 'primaryBorderColor': 'transparent', 'secondaryBorderColor': 'transparent', 'tertiaryBorderColor': 'transparent', 'lineColor': '#ccc' }, 'flowchart': { 'htmlLabels': true }}}%%
 flowchart LR
     A[Markdown<br/>is awesome] --> B[CodeMirror<br/>is amazing]
     B --> C{Line focused?}
