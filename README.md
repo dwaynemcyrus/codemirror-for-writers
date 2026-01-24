@@ -7,8 +7,10 @@ A CodeMirror 6 extension for hybrid markdown editing - shows rendered preview fo
 Try it live: [**Live Demo**](https://tiagosimoes.github.io/codemirror-markdown-hybrid/)
 
 <a href="https://tiagosimoes.github.io/codemirror-markdown-hybrid/">
-  <img src="screenshot.png" alt="Screenshot" width="600">
+  <img src="screenshot.png" alt="Screenshot" width="600" style="border: 1px solid #ddd; border-radius: 4px; cursor: pointer;">
 </a>
+
+> Click the image to try the live demo
 
 ## Install
 
