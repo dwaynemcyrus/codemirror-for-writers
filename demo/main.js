@@ -54,8 +54,13 @@ const view = new EditorView({
   parent: editorContainer,
 });
 
-// Move selection to end and focus
-view.dispatch({
-  selection: { anchor: view.state.doc.length },
-});
+// Move selection to the italic/bold/strikethrough line and focus
+const targetText = '*Italic*, **bold**';
+const pos = view.state.doc.toString().indexOf(targetText);
+if (pos !== -1) {
+  view.dispatch({
+    selection: { anchor: pos },
+    scrollIntoView: true,
+  });
+}
 view.focus();
