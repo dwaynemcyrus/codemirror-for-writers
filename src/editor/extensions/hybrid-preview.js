@@ -125,9 +125,16 @@ class MarkdownPreviewWidget extends WidgetType {
 
 /**
  * Get the set of line numbers that contain the cursor or selection
+ * Only returns focused lines when the editor has focus
  */
-function getFocusedLines(state) {
+function getFocusedLines(state, hasFocus) {
   const focused = new Set();
+
+  // If editor doesn't have focus, no lines are considered focused
+  // This allows preview to render when keyboard is hidden (e.g., on iOS)
+  if (!hasFocus) {
+    return focused;
+  }
 
   for (const range of state.selection.ranges) {
     const startLine = state.doc.lineAt(range.from).number;
@@ -356,8 +363,8 @@ class TableWidget extends WidgetType {
 /**
  * Build decorations for all non-focused lines
  */
-function buildDecorations(state) {
-  const focusedLines = getFocusedLines(state);
+function buildDecorations(state, view) {
+  const focusedLines = getFocusedLines(state, view.hasFocus);
   const codeBlockRanges = getCodeBlockRanges(state.doc);
   const tableRanges = getTableRanges(state.doc, codeBlockRanges);
   const mathBlockRanges = getMathBlockRanges(state.doc, codeBlockRanges);
@@ -411,13 +418,13 @@ function buildDecorations(state) {
 const hybridPreviewPlugin = ViewPlugin.fromClass(
   class {
     constructor(view) {
-      this.decorations = buildDecorations(view.state);
+      this.decorations = buildDecorations(view.state, view);
     }
 
     update(update) {
-      // Always rebuild on doc changes or selection changes
-      if (update.docChanged || update.selectionSet || update.viewportChanged) {
-        this.decorations = buildDecorations(update.state);
+      // Always rebuild on doc changes, selection changes, focus changes, or viewport changes
+      if (update.docChanged || update.selectionSet || update.focusChanged || update.viewportChanged) {
+        this.decorations = buildDecorations(update.state, update.view);
       }
     }
   },
@@ -491,7 +498,7 @@ class HighlightedCodeWidget extends WidgetType {
 function buildCodeBlockDecorations(state) {
   const decorations = [];
   const codeBlockRanges = getCodeBlockRanges(state.doc);
-  const focusedLines = getFocusedLines(state);
+  const focusedLines = getFocusedLines(state, true); // Always consider as focused for code blocks
 
   for (const range of codeBlockRanges) {
     // Check if any line in this code block is focused
@@ -564,7 +571,7 @@ function buildTableDecorations(state) {
   const decorations = [];
   const codeBlockRanges = getCodeBlockRanges(state.doc);
   const tableRanges = getTableRanges(state.doc, codeBlockRanges);
-  const focusedLines = getFocusedLines(state);
+  const focusedLines = getFocusedLines(state, true); // Always consider as focused for tables
 
   for (const range of tableRanges) {
     // Check if any line in this table is focused
@@ -628,7 +635,7 @@ function buildMathBlockDecorations(state) {
   const decorations = [];
   const codeBlockRanges = getCodeBlockRanges(state.doc);
   const mathBlockRanges = getMathBlockRanges(state.doc, codeBlockRanges);
-  const focusedLines = getFocusedLines(state);
+  const focusedLines = getFocusedLines(state, true); // Always consider as focused for math blocks
 
   for (const range of mathBlockRanges) {
     // Check if any line in this math block is focused
