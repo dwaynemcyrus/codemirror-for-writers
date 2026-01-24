@@ -45,7 +45,7 @@ greet('World');
 
 ### Links and Images
 
-Check out [CodeMirror](https://codemirror.net/) for more information.
+Check out [codemirror-markdown-hybrid](https://github.com/tiagosimoes/codemirror-markdown-hybrid) for more information
 
 ![Sample Image](https://picsum.photos/400/200)
 
