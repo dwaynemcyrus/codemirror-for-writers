@@ -45,3 +45,23 @@ body {
   border-color: #3c3c3c;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
+
+/* Mermaid diagram styling */
+.cm-mermaid-preview .node rect,
+.cm-mermaid-preview .node polygon {
+  fill: #f5f5f5 !important;
+  stroke: transparent !important;
+}
+
+.cm-mermaid-preview .edgeLabel {
+  background-color: #fff !important;
+}
+
+.cm-mermaid-preview .flowchart-link {
+  stroke: #ccc !important;
+}
+
+.cm-mermaid-preview .marker {
+  fill: #ccc !important;
+  stroke: #ccc !important;
+}
