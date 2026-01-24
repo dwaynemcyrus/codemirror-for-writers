@@ -47,7 +47,7 @@ greet('World');
 
 Check out [codemirror-markdown-hybrid](https://github.com/tiagosimoes/codemirror-markdown-hybrid) for more information
 
-![Sample Image](sample-image.jpg)
+![Sample Image](/sample-image.jpg)
 
 ### Tables
 
