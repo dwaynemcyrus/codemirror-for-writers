@@ -1,6 +1,6 @@
 # Hybrid Markdown Editor
 
-A markdown editor that shows rendered preview while you edit. Click any line to edit it. No need to switch between edit and preview modes so much. Check out the [GitHub repo](https://github.com/tiagosimoes/codemirror-markdown-hybrid) to use this in your projects.
+A markdown editor that shows rendered preview of the lines you are not editing. No need to switch between edit and preview modes so much. Check out the [GitHub repo](https://github.com/tiagosimoes/codemirror-markdown-hybrid) to use this in your projects.
 
 ## Features
 
