@@ -4,3 +4,4 @@ dist/
 *.log
 .vscode/
 test-serve/
+demo-video/*.webm

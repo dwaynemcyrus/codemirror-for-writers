@@ -9,7 +9,7 @@ This Playwright script automates the process of creating a demo video for the Hy
    ```
    # Hybrid Markdown Editor
 
-   *Edit* and **preview** markdown at the same time :tada:!
+   *Edit* and **preview** at the same time :tada:!
 
    ## Features
 

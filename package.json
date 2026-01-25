@@ -22,7 +22,7 @@
     "build": "vite build",
     "build:lib": "vite build --config vite.lib.config.js",
     "preview": "vite preview demo",
-    "demo:record": "node demo-recording.js"
+    "demo:record": "node demo-video/demo-recording.js"
   },
   "keywords": [
     "codemirror",
