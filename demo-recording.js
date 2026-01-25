@@ -14,7 +14,7 @@
  *   npx playwright codegen http://localhost:5173/#empty
  */
 
-import { chromium } from 'playwright';
+import { chromium } from '@playwright/test';
 
 // The content to type character by character
 const demoContent = `# Hybrid Markdown Editor
