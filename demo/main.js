@@ -23,9 +23,14 @@ editorContainer.className = 'editor-container';
 wrapper.appendChild(editorContainer);
 container.appendChild(wrapper);
 
+// Check if we should load example content or start empty
+// Use #empty hash to start with an empty editor
+const shouldLoadExample = !window.location.hash.includes('empty');
+const initialContent = shouldLoadExample ? exampleContent : '';
+
 // Initialize editor with the extension
 const state = EditorState.create({
-  doc: exampleContent,
+  doc: initialContent,
   extensions: [
     // The main hybrid markdown extension
     hybridMarkdown({ theme: 'light' }),
@@ -50,12 +55,15 @@ const view = new EditorView({
 });
 
 // Move selection to the italic/bold/strikethrough line and focus
-const targetText = '*Italic*, **bold**';
-const pos = view.state.doc.toString().indexOf(targetText);
-if (pos !== -1) {
-  view.dispatch({
-    selection: { anchor: pos },
-    scrollIntoView: true,
-  });
+// Only if we loaded the example content
+if (shouldLoadExample) {
+  const targetText = '*Italic*, **bold**';
+  const pos = view.state.doc.toString().indexOf(targetText);
+  if (pos !== -1) {
+    view.dispatch({
+      selection: { anchor: pos },
+      scrollIntoView: true,
+    });
+  }
 }
 view.focus();

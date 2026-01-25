@@ -1,0 +1,98 @@
+/**
+ * Playwright script for recording a demo video of the hybrid markdown editor.
+ * 
+ * This script:
+ * 1. Opens the demo with an empty editor (using #empty hash parameter)
+ * 2. Types the demo content character by character
+ * 3. Clicks the code block, table, and diagram buttons
+ * 
+ * Usage:
+ *   npm run dev (in one terminal - runs on http://localhost:5173/)
+ *   node demo-recording.js (in another terminal)
+ * 
+ * Or for recording:
+ *   npx playwright codegen http://localhost:5173/#empty
+ */
+
+import { chromium } from '@playwright/test';
+
+// The content to type character by character
+const demoContent = `# Hybrid Markdown Editor
+
+*Edit* and **preview** markdown at the same time :tada:!
+
+## Features
+
+1. ordered or unordered lists
+2. [ ] with tasks
+3. **bold**, *italic*, etc...
+4. emoticons :smile:
+5. code, tables and diagrams
+`;
+
+async function runDemo() {
+  console.log('Starting demo recording script...');
+  
+  // Launch browser
+  const browser = await chromium.launch({
+    headless: false, // Set to false to see the browser
+    slowMo: 100, // Slow down actions for better recording
+  });
+  
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 }, // Good size for demo recording
+  });
+  
+  const page = await context.newPage();
+  
+  // Navigate to the demo with #empty hash
+  console.log('Navigating to demo page with empty editor...');
+  await page.goto('http://localhost:5173/#empty');
+  
+  // Wait for the editor to be ready
+  await page.waitForSelector('.cm-editor', { timeout: 5000 });
+  console.log('Editor loaded');
+  
+  // Click on the editor to focus it
+  await page.click('.cm-editor .cm-content');
+  await page.waitForTimeout(500);
+  
+  // Type the content character by character
+  console.log('Typing demo content character by character...');
+  for (const char of demoContent) {
+    await page.keyboard.type(char, { delay: 50 }); // 50ms delay between characters
+  }
+  
+  console.log('Content typed successfully');
+  await page.waitForTimeout(1000);
+  
+  // Click the Code Block button (icon: "{ }")
+  console.log('Clicking Code Block button...');
+  const codeBlockButton = await page.locator('button.cm-md-toolbar-btn[title*="Code Block"]');
+  await codeBlockButton.click();
+  await page.waitForTimeout(1000);
+  
+  // Click the Table button (icon: "⊞")
+  console.log('Clicking Table button...');
+  const tableButton = await page.locator('button.cm-md-toolbar-btn[title*="Table"]');
+  await tableButton.click();
+  await page.waitForTimeout(1000);
+  
+  // Click the Diagram button (icon: "◇")
+  console.log('Clicking Diagram button...');
+  const diagramButton = await page.locator('button.cm-md-toolbar-btn[title*="Diagram"]');
+  await diagramButton.click();
+  await page.waitForTimeout(1000);
+  
+  console.log('Demo recording complete!');
+  console.log('You can now stop the screen recording.');
+  
+  // Wait a bit before closing to see the final result
+  await page.waitForTimeout(3000);
+  
+  // Close browser
+  await browser.close();
+}
+
+// Run the demo
+runDemo().catch(console.error);

@@ -6,6 +6,8 @@ A CodeMirror 6 extension for hybrid markdown editing - shows rendered preview fo
 
 Try it live: [**Live Demo**](https://tiagosimoes.github.io/codemirror-markdown-hybrid/)
 
+**Tip:** Add `#empty` to the URL to start with an empty editor, useful for creating your own demos.
+
 <a href="https://tiagosimoes.github.io/codemirror-markdown-hybrid/">
   <img src="screenshot.png" alt="Screenshot" width="600">
 </a>
