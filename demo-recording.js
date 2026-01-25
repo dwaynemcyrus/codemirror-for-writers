@@ -105,6 +105,16 @@ async function runDemo() {
   await diagramButton.click();
   await page.waitForTimeout(1000);
   
+  // Scroll the editor to show the code block, table, and diagram
+  console.log('Scrolling editor to show all content...');
+  await page.evaluate(() => {
+    const scrollElement = document.querySelector('.cm-scroller');
+    if (scrollElement) {
+      scrollElement.scrollTop = scrollElement.scrollHeight;
+    }
+  });
+  await page.waitForTimeout(2000);
+  
   console.log('Demo recording complete!');
   console.log('You can now stop the screen recording.');
   
