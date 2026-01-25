@@ -45,10 +45,19 @@ async function runDemo() {
   });
   
   const page = await context.newPage();
+
+  // Navigate to the demo with #empty hash
+  console.log('Navigating to demo page with empty editor...');
+  await page.goto('http://localhost:5173/#empty');
   
-  // Add custom cursor styling
-  await page.addStyleTag({
-    content: `
+  // Wait for the editor to be ready
+  await page.waitForSelector('.cm-editor', { timeout: 5000 });
+  console.log('Editor loaded');
+
+  // Add custom cursor that follows mouse movements (for demo recording)
+  await page.evaluate(() => {
+    const style = document.createElement('style');
+    style.textContent = `
       .pw-cursor {
         position: fixed;
         width: 12px;
@@ -59,28 +68,18 @@ async function runDemo() {
         z-index: 999999;
         transform: translate(-50%, -50%);
       }
-    `
-  });
-  
-  // Add cursor tracking script
-  await page.addInitScript(() => {
+    `;
+    document.head.appendChild(style);
+
     const cursor = document.createElement('div');
     cursor.className = 'pw-cursor';
     document.body.appendChild(cursor);
-    
+
     document.addEventListener('mousemove', e => {
       cursor.style.left = e.clientX + 'px';
-      cursor.style.top  = e.clientY + 'px';
+      cursor.style.top = e.clientY + 'px';
     });
   });
-  
-  // Navigate to the demo with #empty hash
-  console.log('Navigating to demo page with empty editor...');
-  await page.goto('http://localhost:5173/#empty');
-  
-  // Wait for the editor to be ready
-  await page.waitForSelector('.cm-editor', { timeout: 5000 });
-  console.log('Editor loaded');
   
   // Click on the editor to focus it
   await page.click('.cm-editor .cm-content');

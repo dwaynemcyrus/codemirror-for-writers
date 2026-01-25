@@ -25,7 +25,7 @@ container.appendChild(wrapper);
 
 // Check if we should load example content or start empty
 // Use #empty hash to start with an empty editor
-const shouldLoadExample = !window.location.hash.includes('empty');
+const shouldLoadExample = window.location.hash !== '#empty';
 const initialContent = shouldLoadExample ? exampleContent : '';
 
 // Initialize editor with the extension
