@@ -54,6 +54,9 @@ async function runDemo() {
 
   const page = await context.newPage();
 
+  // Track when video recording starts (context creation starts recording)
+  const videoStart = Date.now();
+
   // Navigate to the demo with #empty hash
   console.log('Navigating to demo page with empty editor...');
   await page.goto('http://localhost:5173/#empty');
@@ -84,7 +87,7 @@ async function runDemo() {
       }
       body {
         transform-origin: top left;
-        transition: transform 0.8s ease-in-out;
+        transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
       }
       body.zoomed-in {
         transform: scale(1.8);
@@ -95,6 +98,10 @@ async function runDemo() {
       /* Prevent toolbar from wrapping when zoomed */
       .cm-md-toolbar {
         flex-wrap: nowrap !important;
+        overflow: hidden;
+      }
+      /* Hide page scrollbar */
+      html {
         overflow: hidden;
       }
     `;
@@ -163,6 +170,11 @@ async function runDemo() {
   // Hide cursor while typing
   await page.evaluate(() => document.getElementById('pw-cursor')?.classList.add('hidden'));
 
+  // Track when typing starts (for trimming video)
+  const typingStart = Date.now();
+  const trimSeconds = (typingStart - videoStart) / 1000;
+  console.log(`Trimming first ${trimSeconds.toFixed(1)}s from video`);
+
   // Type the content character by character
   console.log('Typing demo content...');
   for (const char of demoContent) {
@@ -175,7 +187,7 @@ async function runDemo() {
   // Zoom out at ~11s to show full editor
   console.log(`Zooming out at ${getElapsed().toFixed(1)}s`);
   await page.evaluate(() => document.body.classList.remove('zoomed-in'));
-  await page.waitForTimeout(1000); // Wait for zoom animation
+  await page.waitForTimeout(1500); // Wait for zoom animation (1.2s transition + buffer)
 
   // Continue to add code block, table, diagram
   await page.keyboard.press('Enter');
@@ -205,12 +217,9 @@ async function runDemo() {
   // Click the Diagram button
   console.log('Clicking Diagram button...');
   await animateToAndClick(page.locator('button.cm-md-toolbar-btn[title*="Diagram"]'));
-  await page.waitForTimeout(1500);
-
-  await page.waitForTimeout(1000); // Wait for zoom animation
+  await page.waitForTimeout(1000);
 
   // Go up a bit so the diagram code is visible
-  await page.keyboard.press('ArrowUp');
   await page.keyboard.press('ArrowUp');
 
   // Wait a bit to show the diagram code
@@ -228,6 +237,7 @@ async function runDemo() {
   await page.keyboard.press('ArrowUp');
   await page.keyboard.press('ArrowUp');
 
+  await page.waitForTimeout(500);
   // Zoom in at ~20s to show diagram code details
   console.log(`Zooming in at ${getElapsed().toFixed(1)}s`);
   await page.evaluate(() => document.body.classList.add('zoomed-in'));
@@ -319,7 +329,8 @@ async function runDemo() {
 
     try {
       // Convert webm to gif using ffmpeg with good quality settings (600p width for balance)
-      execSync(`ffmpeg -y -i "${videoPath}" -vf "fps=15,scale=600:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" "${gifFile}"`, {
+      // Use -ss to trim the beginning (before typing starts)
+      execSync(`ffmpeg -y -ss ${trimSeconds.toFixed(2)} -i "${videoPath}" -vf "fps=15,scale=600:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" "${gifFile}"`, {
         stdio: 'inherit'
       });
       console.log(`GIF saved to: ${gifFile}`);
