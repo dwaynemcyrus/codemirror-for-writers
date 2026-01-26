@@ -1,6 +1,6 @@
 {
   "name": "codemirror-markdown-hybrid",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "description": "A CodeMirror 6 extension for hybrid markdown editing - shows rendered preview for unfocused lines and raw markdown for the line being edited",
   "main": "./dist/index.cjs",
@@ -37,7 +37,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/tiagosimoes/codemirror-markdown-hybrid"
   },
   "peerDependencies": {
     "@codemirror/commands": "^6.0.0",
