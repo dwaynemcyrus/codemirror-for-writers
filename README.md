@@ -35,6 +35,7 @@ const view = new EditorView({ state, parent: document.body });
 ## Features
 
 - Hybrid preview - rendered markdown for unfocused lines, raw editing for current line
+- Collapsible headings - click the chevron to collapse/expand sections
 - Light and dark themes with dynamic switching
 - Keyboard shortcuts (Ctrl+B, Ctrl+I, Ctrl+K, etc.)
 - Syntax highlighted code blocks
@@ -51,6 +52,7 @@ Main extension function. Returns an array of CodeMirror extensions.
 | `theme` | `'light'` \| `'dark'` | `'light'` | Initial theme |
 | `enablePreview` | `boolean` | `true` | Enable hybrid preview |
 | `enableKeymap` | `boolean` | `true` | Enable markdown shortcuts |
+| `enableCollapse` | `boolean` | `true` | Enable collapsible headings |
 
 ### Theme & Mode Functions
 
