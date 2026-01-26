@@ -1,7 +1,25 @@
 import { EditorView, Decoration, WidgetType, ViewPlugin } from '@codemirror/view';
-import { StateField } from '@codemirror/state';
+import { StateField, StateEffect } from '@codemirror/state';
 import { renderMarkdownLine, renderTable, renderBlockMath } from '../../utils/markdown.js';
 import { highlightCode } from '../../utils/syntax-highlight.js';
+
+// State effect to signal focus changes to StateFields
+const focusChangeEffect = StateEffect.define();
+
+// StateField to track editor focus state (accessible by other StateFields)
+const editorFocusState = StateField.define({
+  create() {
+    return false;
+  },
+  update(isFocused, tr) {
+    for (const effect of tr.effects) {
+      if (effect.is(focusChangeEffect)) {
+        return effect.value;
+      }
+    }
+    return isFocused;
+  },
+});
 
 /**
  * Widget that renders a markdown line as HTML
@@ -445,9 +463,22 @@ const hybridPreviewPlugin = ViewPlugin.fromClass(
   class {
     constructor(view) {
       this.decorations = buildDecorations(view.state, view);
+      this.lastFocusState = view.hasFocus;
     }
 
     update(update) {
+      // Check if focus state changed and dispatch effect to notify StateFields
+      const currentFocus = update.view.hasFocus;
+      if (currentFocus !== this.lastFocusState) {
+        this.lastFocusState = currentFocus;
+        // Dispatch focus change effect to trigger StateField updates
+        setTimeout(() => {
+          update.view.dispatch({
+            effects: focusChangeEffect.of(currentFocus),
+          });
+        }, 0);
+      }
+
       // Always rebuild on doc changes, selection changes, focus changes, or viewport changes
       if (update.docChanged || update.selectionSet || update.focusChanged || update.viewportChanged) {
         this.decorations = buildDecorations(update.state, update.view);
@@ -524,7 +555,9 @@ class HighlightedCodeWidget extends WidgetType {
 function buildCodeBlockDecorations(state) {
   const decorations = [];
   const codeBlockRanges = getCodeBlockRanges(state.doc);
-  const focusedLines = getFocusedLines(state, true); // Always consider as focused for code blocks
+  const isFocused = state.field(editorFocusState);
+  // Only show focused lines if editor is focused
+  const focusedLines = isFocused ? getFocusedLines(state, true) : new Set();
 
   for (const range of codeBlockRanges) {
     // Check if any line in this code block is focused
@@ -579,7 +612,9 @@ const codeBlockDecorations = StateField.define({
   },
 
   update(decorations, tr) {
-    if (tr.docChanged || tr.selection) {
+    // React to doc changes, selection changes, or focus changes
+    const hasFocusChange = tr.effects.some(e => e.is(focusChangeEffect));
+    if (tr.docChanged || tr.selection || hasFocusChange) {
       return buildCodeBlockDecorations(tr.state);
     }
     return decorations;
@@ -597,7 +632,9 @@ function buildTableDecorations(state) {
   const decorations = [];
   const codeBlockRanges = getCodeBlockRanges(state.doc);
   const tableRanges = getTableRanges(state.doc, codeBlockRanges);
-  const focusedLines = getFocusedLines(state, true); // Always consider as focused for tables
+  const isFocused = state.field(editorFocusState);
+  // Only show focused lines if editor is focused
+  const focusedLines = isFocused ? getFocusedLines(state, true) : new Set();
 
   for (const range of tableRanges) {
     // Check if any line in this table is focused
@@ -643,7 +680,9 @@ const tableDecorations = StateField.define({
   },
 
   update(decorations, tr) {
-    if (tr.docChanged || tr.selection) {
+    // React to doc changes, selection changes, or focus changes
+    const hasFocusChange = tr.effects.some(e => e.is(focusChangeEffect));
+    if (tr.docChanged || tr.selection || hasFocusChange) {
       return buildTableDecorations(tr.state);
     }
     return decorations;
@@ -661,7 +700,9 @@ function buildMathBlockDecorations(state) {
   const decorations = [];
   const codeBlockRanges = getCodeBlockRanges(state.doc);
   const mathBlockRanges = getMathBlockRanges(state.doc, codeBlockRanges);
-  const focusedLines = getFocusedLines(state, true); // Always consider as focused for math blocks
+  const isFocused = state.field(editorFocusState);
+  // Only show focused lines if editor is focused
+  const focusedLines = isFocused ? getFocusedLines(state, true) : new Set();
 
   for (const range of mathBlockRanges) {
     // Check if any line in this math block is focused
@@ -708,7 +749,9 @@ const mathBlockDecorations = StateField.define({
   },
 
   update(decorations, tr) {
-    if (tr.docChanged || tr.selection) {
+    // React to doc changes, selection changes, or focus changes
+    const hasFocusChange = tr.effects.some(e => e.is(focusChangeEffect));
+    if (tr.docChanged || tr.selection || hasFocusChange) {
       return buildMathBlockDecorations(tr.state);
     }
     return decorations;
@@ -723,5 +766,5 @@ const mathBlockDecorations = StateField.define({
  * The hybrid preview extension
  */
 export function hybridPreview() {
-  return [hybridPreviewPlugin, codeBlockDecorations, tableDecorations, mathBlockDecorations];
+  return [editorFocusState, hybridPreviewPlugin, codeBlockDecorations, tableDecorations, mathBlockDecorations];
 }
