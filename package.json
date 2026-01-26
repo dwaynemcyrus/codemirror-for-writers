@@ -1,6 +1,6 @@
 {
   "name": "codemirror-markdown-hybrid",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "type": "module",
   "description": "A CodeMirror 6 extension for hybrid markdown editing - shows rendered preview for unfocused lines and raw markdown for the line being edited",
   "main": "./dist/index.cjs",
