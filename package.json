@@ -22,6 +22,8 @@
     "build": "vite build",
     "build:lib": "vite build --config vite.lib.config.js",
     "preview": "vite preview demo",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
     "demo:record": "node demo-video/demo-recording.js"
   },
   "keywords": [

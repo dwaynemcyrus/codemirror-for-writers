@@ -1,5 +1,7 @@
 # codemirror-markdown-hybrid
 
+[![Tests](https://github.com/tiagosimoes/codemirror-markdown-hybrid/actions/workflows/test.yml/badge.svg)](https://github.com/tiagosimoes/codemirror-markdown-hybrid/actions/workflows/test.yml)
+
 A CodeMirror 6 extension for hybrid markdown editing - shows rendered preview for unfocused lines and raw markdown for the line or block being edited.
 
 ## Demo
