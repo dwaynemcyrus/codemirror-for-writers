@@ -143,8 +143,8 @@ test.describe('Hybrid Markdown Editor', () => {
     await page.keyboard.press('Enter');
     await page.keyboard.type('next line');
 
-    const checkbox = page.locator('.cm-markdown-preview input[type="checkbox"]').first();
-    await checkbox.click();
+    const taskIcon = page.locator('.cm-markdown-preview .md-task-icon.md-task-complete').first();
+    await taskIcon.click();
 
     // Focus the line to reveal raw markdown
     await page.locator('.cm-markdown-preview').first().click();

@@ -39,7 +39,7 @@ greet('World');
 
 - [x] Completed task
 - [ ] Incomplete task
-- [i] Information task
+- [i] Idea task
 - [!] Urgent task
 - [?] Question task
 - [*] Important task
