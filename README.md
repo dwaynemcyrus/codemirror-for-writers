@@ -1,13 +1,13 @@
 # codemirror-for-writers
 
 [![npm version](https://img.shields.io/npm/v/codemirror-for-writers.svg)](https://www.npmjs.com/package/codemirror-for-writers)
-[![Tests](https://github.com/tiagosimoes/codemirror-markdown-hybrid/actions/workflows/test.yml/badge.svg)](https://github.com/tiagosimoes/codemirror-markdown-hybrid/actions/workflows/test.yml)
+[![Tests](https://github.com/dwaynemcyrus/codemirror-for-writers/actions/workflows/test.yml/badge.svg)](https://github.com/dwaynemcyrus/codemirror-for-writers/actions/workflows/test.yml)
 
 A CodeMirror 6 extension for hybrid markdown editing - shows rendered preview for unfocused lines and raw markdown for the line or block being edited, with custom task types for writers.
 
 ## Demo
 
-Try it live: [**Live Demo**](https://tiagosimoes.github.io/codemirror-markdown-hybrid/)
+Try it live: [**Live Demo**](https://dwaynemcyrus.github.io/codemirror-for-writers/)
 
 ![Demo](demo-video/demo.gif)
 

@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   root: 'demo',
-  base: '/codemirror-markdown-hybrid/',
+  base: '/codemirror-for-writers/',
   build: {
     outDir: '../dist',
   },
