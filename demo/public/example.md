@@ -46,6 +46,30 @@ greet('World');
 - [>] Forwarded task
 - [<] Scheduled task
 
+### Highlight, Subscript, Superscript
+
+This is ==highlighted== text.
+
+H~2~O and x^2^
+
+### Heading IDs
+
+#### Section Title [#section-title]
+
+### Definition List
+
+Term One
+: First definition
+: Second definition
+  Continued detail line
+
+### Footnotes
+
+Here is a footnote reference[^note].
+
+[^note]: This is the first line of the footnote.
+  This line continues the footnote definition.
+
 ### Blockquote
 
 > This is a blockquote. It can span multiple lines and contain **formatted** text.

@@ -128,6 +128,68 @@ test.describe('Hybrid Markdown Editor', () => {
     await expect(page.locator('.cm-markdown-preview .md-list-marker').first()).toBeVisible();
   });
 
+  test('should render highlight when unfocused', async ({ page }) => {
+    await page.locator('.cm-content').click();
+    await page.keyboard.type('==highlighted==');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type('next line');
+
+    await expect(page.locator('.cm-markdown-preview .md-highlight')).toBeVisible();
+  });
+
+  test('should render subscript when unfocused', async ({ page }) => {
+    await page.locator('.cm-content').click();
+    await page.keyboard.type('H~2~O');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type('next line');
+
+    await expect(page.locator('.cm-markdown-preview .md-subscript')).toBeVisible();
+  });
+
+  test('should render superscript when unfocused', async ({ page }) => {
+    await page.locator('.cm-content').click();
+    await page.keyboard.type('x^2^');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type('next line');
+
+    await expect(page.locator('.cm-markdown-preview .md-superscript')).toBeVisible();
+  });
+
+  test('should render heading IDs when unfocused', async ({ page }) => {
+    await page.locator('.cm-content').click();
+    await page.keyboard.type('### Heading [#heading-id]');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type('next line');
+
+    await expect(page.locator('.cm-markdown-preview [data-heading-id="heading-id"]')).toBeVisible();
+  });
+
+  test('should render definition lists when unfocused', async ({ page }) => {
+    await page.locator('.cm-content').click();
+    await page.keyboard.type('Term One');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type(': First definition');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type(': Second definition');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type('next line');
+
+    await expect(page.locator('.cm-definition-list-preview .md-definition-list')).toBeVisible();
+  });
+
+  test('should render multi-line footnotes when unfocused', async ({ page }) => {
+    await page.locator('.cm-content').click();
+    await page.keyboard.type('Footnote ref[^note]');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type('[^note]: First line');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type('  Second line');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type('next line');
+
+    await expect(page.locator('.cm-footnote-preview .md-footnote-block')).toBeVisible();
+  });
+
   test('should render custom task icons when unfocused', async ({ page }) => {
     await page.locator('.cm-content').click();
     await page.keyboard.type('- [i] Info task');

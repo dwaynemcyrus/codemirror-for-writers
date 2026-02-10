@@ -31,3 +31,51 @@ Verification
 - `npm run build:lib`
 - `npm run build`
 - Lint/typecheck scripts (if present in package.json)
+
+---
+
+## Feature: Markdown Extensions (Preview Rendering)
+
+Plan
+1. Confirm parsing/rendering strategy for each extension (superscript, subscript, highlight, strikethrough, heading IDs, definition lists, footnotes, emoji). Note: toolbar buttons/keybindings are deferred; list missing toolbar buttons for later.
+2. Update markdown parsing/rendering in `lib/utils/markdown.js` to support:
+   - `==highlight==`
+   - `~subscript~`
+   - `^superscript^`
+   - Footnote refs/defs with multi-line definitions
+   - Heading IDs via `### Heading [#id]`
+   - Definition lists (term + `: definition`, multiple defs)
+   - Full emoji shortcode coverage (library; ask for approval before adding)
+3. Extend hybrid preview rendering (if needed) to surface the new syntaxes consistently in unfocused lines.
+4. Update demo content to showcase new syntaxes.
+5. Add Playwright coverage for the new preview behaviors.
+6. Run verification: `npm run test`, `npm run build:lib`, `npm run build`.
+
+Expected Files
+- PLANS.md
+- lib/utils/markdown.js
+- lib/theme/base.js
+- lib/extensions/hybrid-preview.js
+- demo/public/example.md
+- tests/editor.spec.js
+- package.json (if emoji library added)
+- package-lock.json (if emoji library added)
+
+Risks
+- Regex-based parsing can conflict between inline syntaxes (e.g., `~` in strikethrough vs subscript).
+- Full emoji shortcode coverage requires a dependency; size/perf tradeoffs.
+- Multi-line footnotes and definition lists require careful line parsing to avoid breaking existing preview logic.
+
+Verification
+- `npm run test`
+- `npm run build:lib`
+- `npm run build`
+
+Deferred Toolbar/Keybindings
+- Highlight (`==text==`)
+- Subscript (`~text~`)
+- Superscript (`^text^`)
+- Footnotes (`[^id]` / `[^id]:`)
+- Heading IDs (`### Heading [#id]`)
+- Definition Lists (term + `: definition`)
+- Emoji shortcodes (full coverage)
