@@ -1,5 +1,5 @@
 {
-  "name": "@cyrus/codemirror-markdown-hybrid",
+  "name": "codemirror-for-writers",
   "version": "1.0.0",
   "description": "Enhanced CodeMirror 6 hybrid markdown editor with wiki-links, YAML frontmatter, and extended markdown support",
   "type": "module",

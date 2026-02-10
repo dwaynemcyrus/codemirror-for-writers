@@ -64,14 +64,14 @@ Based on [markdown guide](https://www.markdownguide.org/extended-syntax/):
 ## 📦 Installation
 
 ```bash
-npm install @cyrus/codemirror-markdown-hybrid
+npm install codemirror-for-writers @codemirror/state @codemirror/view
 ```
 
 ## 🚀 Usage
 
 ```typescript
 import { EditorView, basicSetup } from 'codemirror';
-import { hybridMarkdown } from '@cyrus/codemirror-markdown-hybrid';
+import { hybridMarkdown } from 'codemirror-for-writers';
 
 const view = new EditorView({
   doc: '# Hello World',
@@ -123,7 +123,7 @@ interface HybridMarkdownOptions {
 
 ### Theme Functions
 ```typescript
-import { toggleTheme, setTheme } from '@cyrus/codemirror-markdown-hybrid';
+import { toggleTheme, setTheme } from 'codemirror-for-writers';
 
 toggleTheme(view);           // Returns true if now dark
 setTheme(view, 'dark');      // Set explicitly
@@ -131,7 +131,7 @@ setTheme(view, 'dark');      // Set explicitly
 
 ### Mode Functions
 ```typescript
-import { toggleHybridMode, setMode } from '@cyrus/codemirror-markdown-hybrid';
+import { toggleHybridMode, setMode } from 'codemirror-for-writers';
 
 toggleHybridMode(view);      // Returns true if hybrid
 setMode(view, 'raw');        // Show raw markdown
@@ -139,7 +139,7 @@ setMode(view, 'raw');        // Show raw markdown
 
 ### Actions (for toolbars)
 ```typescript
-import { actions } from '@cyrus/codemirror-markdown-hybrid';
+import { actions } from 'codemirror-for-writers';
 
 // Basic formatting
 actions.bold(view);

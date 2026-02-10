@@ -5,7 +5,7 @@
 ### Setup
 
 ```bash
-cd codemirror-markdown-hybrid-fork
+cd codemirror-for-writers
 npm install
 ```
 
@@ -53,7 +53,7 @@ npm publish --access public
 ```bash
 # Add to package.json
 {
-  "name": "@your-username/codemirror-markdown-hybrid",
+  "name": "@your-username/codemirror-for-writers",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   }
@@ -89,7 +89,7 @@ In your Next.js app's package.json:
 ```json
 {
   "dependencies": {
-    "@cyrus/codemirror-markdown-hybrid": "git+https://github.com/your-username/codemirror-markdown-hybrid.git"
+    "codemirror-for-writers": "git+https://github.com/your-username/codemirror-for-writers.git"
   }
 }
 ```
@@ -99,7 +99,7 @@ Or for local development:
 ```json
 {
   "dependencies": {
-    "@cyrus/codemirror-markdown-hybrid": "file:../codemirror-markdown-hybrid-fork"
+    "codemirror-for-writers": "file:../codemirror-for-writers"
   }
 }
 ```
@@ -110,9 +110,9 @@ Or for local development:
 
 ```bash
 cd your-nextjs-pwa
-npm install @cyrus/codemirror-markdown-hybrid
+npm install codemirror-for-writers
 # or
-npm install file:../codemirror-markdown-hybrid-fork
+npm install file:../codemirror-for-writers
 ```
 
 ### Step 2: Create Component
@@ -151,7 +151,7 @@ export default function Editor() {
 // next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@cyrus/codemirror-markdown-hybrid'],
+  transpilePackages: ['codemirror-for-writers'],
   webpack: (config) => {
     // Handle CodeMirror's ES modules
     config.resolve.fallback = {
@@ -396,7 +396,7 @@ git tag -a v1.0.0 -m "Release 1.0.0"
 git push origin v1.0.0
 
 # Rollback if needed
-npm install @cyrus/codemirror-markdown-hybrid@1.0.0
+npm install codemirror-for-writers@1.0.0
 ```
 
 ## Next Steps

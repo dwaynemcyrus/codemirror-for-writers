@@ -6,10 +6,10 @@ This guide shows how to integrate the enhanced markdown editor into your Next.js
 
 ```bash
 # From local (during development)
-npm install file:./codemirror-markdown-hybrid-fork
+npm install file:./codemirror-for-writers
 
 # Or publish to npm/GitHub packages first
-npm install @cyrus/codemirror-markdown-hybrid
+npm install codemirror-for-writers
 ```
 
 ## Basic Setup
@@ -22,7 +22,7 @@ npm install @cyrus/codemirror-markdown-hybrid
 
 import { useEffect, useRef, useState } from 'react';
 import { EditorView, basicSetup } from 'codemirror';
-import { hybridMarkdown } from '@cyrus/codemirror-markdown-hybrid';
+import { hybridMarkdown } from 'codemirror-for-writers';
 
 interface MarkdownEditorProps {
   initialValue?: string;
@@ -268,7 +268,7 @@ export default function NoteEditor({ noteId }: NoteEditorProps) {
 // components/MobileToolbar.tsx
 'use client';
 
-import { actions } from '@cyrus/codemirror-markdown-hybrid';
+import { actions } from 'codemirror-for-writers';
 import { EditorView } from '@codemirror/view';
 
 interface MobileToolbarProps {
