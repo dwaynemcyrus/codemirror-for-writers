@@ -24,7 +24,8 @@ export default defineConfig({
         '@codemirror/lang-json',
         '@lezer/highlight',
         'katex',
-        'marked',
+        'markdown-it',
+        'markdown-it-emoji',
       ],
       output: {
         // Provide global variables for UMD build

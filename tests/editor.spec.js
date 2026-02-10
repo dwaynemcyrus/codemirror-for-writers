@@ -190,6 +190,15 @@ test.describe('Hybrid Markdown Editor', () => {
     await expect(page.locator('.cm-footnote-preview .md-footnote-block')).toBeVisible();
   });
 
+  test('should render emoji shortcodes when unfocused', async ({ page }) => {
+    await page.locator('.cm-content').click();
+    await page.keyboard.type('Camping :tent:');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type('next line');
+
+    await expect(page.locator('.cm-markdown-preview')).toContainText('⛺');
+  });
+
   test('should render custom task icons when unfocused', async ({ page }) => {
     await page.locator('.cm-content').click();
     await page.keyboard.type('- [i] Info task');

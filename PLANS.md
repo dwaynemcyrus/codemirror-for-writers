@@ -79,3 +79,33 @@ Deferred Toolbar/Keybindings
 - Heading IDs (`### Heading [#id]`)
 - Definition Lists (term + `: definition`)
 - Emoji shortcodes (full coverage)
+
+---
+
+## Feature: Markdown-it Migration (Full Replacement)
+
+Plan
+1. Replace `marked` with `markdown-it` for inline and document rendering, preserving current HTML/CSS output as closely as possible.
+2. Add `markdown-it-emoji` for shortcode support and implement custom inline rules for highlight, subscript, superscript, inline math, and footnote references.
+3. Update heading ID parsing to support both `[#id]` and `{#id}`.
+4. Ensure block preview widgets (definition lists, footnotes, tables) continue to render with the new inline renderer.
+5. Update demo content (include `:tent:` emoji) and adjust tests if needed.
+6. Run verification: `npm run test`, `npm run build:lib`, `npm run build`.
+
+Expected Files
+- PLANS.md
+- package.json
+- package-lock.json
+- lib/utils/markdown.js
+- lib/extensions/hybrid-preview.js
+- demo/public/example.md
+- tests/editor.spec.js
+
+Risks
+- Inline parsing differences may slightly affect preview alignment.
+- Custom inline rules could conflict with markdown-it defaults if not ordered carefully.
+
+Verification
+- `npm run test`
+- `npm run build:lib`
+- `npm run build`

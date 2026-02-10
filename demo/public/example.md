@@ -100,7 +100,7 @@ $$
 
 ### Emoji
 
-Supported emoji shortcodes: :smile: :heart: :rocket: :tada:
+Supported emoji shortcodes: :smile: :heart: :rocket: :tada: :tent:
 
 ### Mermaid Diagrams
 
