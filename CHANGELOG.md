@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.4.0
+
+### Added
+- Markdown-it renderer with emoji shortcode support.
+- Footnotes, heading IDs, definition lists, highlight, subscript, superscript, strikethrough, and inline math rendering.
+- Footnote back-reference link in preview.
+- Tests covering new markdown extensions.
+
+### Changed
+- Preview rendering pipeline now uses markdown-it instead of marked.
+- Demo content updated to showcase new markdown features.
+- Build externals updated for markdown-it and markdown-it-emoji.
+- Dependencies swapped: removed `marked` and `gemoji`, added `markdown-it` and `markdown-it-emoji`.
+
 ## v1.3.0
 
 ### Added
