@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.5.0
+
+### Added
+- Wiki link parsing/rendering with strict `[[title]]` / `[[title#section]]` / alias formats.
+- Hybrid preview styling and click handling for wiki links across line, heading, table, footnote, and definition list previews.
+- Demo-only wiki link autocomplete plugin and sample note index.
+- Tests for wiki link rendering and click handling in preview blocks.
+
+### Changed
+- Hybrid markdown options now include `enableWikiLinks`, `renderWikiLinks`, and `onWikiLinkClick`.
+- Documentation updated for wiki link behavior and package naming in docs.
+- Demo content updated with wiki link examples.
+
 ## v1.4.0
 
 ### Added
