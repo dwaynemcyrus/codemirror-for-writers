@@ -397,6 +397,32 @@ test.describe('Toolbar Actions', () => {
     await expect(page.locator('.cm-lineNumbers')).toHaveCount(0);
   });
 
+  test('should block typing in read-only mode', async ({ page }) => {
+    const readOnlyBtn = page.locator('.cm-md-toolbar-btn[title="Enable Read Only"]');
+
+    await readOnlyBtn.click();
+    await page.keyboard.type('Cannot edit');
+
+    const content = await page.locator('.cm-content').textContent();
+    expect(content?.includes('Cannot edit')).toBe(false);
+  });
+
+  test('should allow task toggles in read-only mode', async ({ page }) => {
+    const readOnlyBtn = page.locator('.cm-md-toolbar-btn[title="Enable Read Only"]');
+
+    await page.keyboard.type('- [ ] Task');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type('next line');
+
+    await readOnlyBtn.click();
+
+    const taskIcon = page.locator('.cm-markdown-preview .md-task-icon').first();
+    await taskIcon.click();
+
+    await page.locator('.cm-markdown-preview').first().click();
+    await expect(page.locator('.cm-content')).toContainText('[x] Task');
+  });
+
   test('should select next occurrence from toolbar', async ({ page }) => {
     const selectNextBtn = page.locator('.cm-md-toolbar-btn[title="Select Next Occurrence (Ctrl+D)"]');
 

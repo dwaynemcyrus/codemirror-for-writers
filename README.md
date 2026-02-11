@@ -64,6 +64,7 @@ Main extension function. Returns an array of CodeMirror extensions.
 | `enableWikiLinks` | `boolean` | `false` | Enable wiki-link parsing/highlighting in hybrid preview |
 | `renderWikiLinks` | `boolean` | `true` | Render wiki links in preview when enabled |
 | `onWikiLinkClick` | `(link) => void` | `undefined` | Optional handler for preview wiki-link clicks (only active when provided) |
+| `readOnly` | `boolean` | `false` | Enable read-only mode (task toggles still allowed) |
 
 ### Theme & Mode Functions
 
@@ -71,6 +72,12 @@ Main extension function. Returns an array of CodeMirror extensions.
 - `toggleHybridMode(view)` - Toggle between hybrid/raw mode, returns `true` if hybrid
 - `setTheme(view, theme)` - Set theme explicitly (`'light'` or `'dark'`)
 - `setMode(view, mode)` - Set mode explicitly (`'hybrid'` or `'raw'`)
+
+### Read-only Functions
+
+- `toggleReadOnly(view)` - Toggle read-only, returns `true` if now read-only
+- `setReadOnly(view, readOnly)` - Set read-only explicitly
+- `isReadOnly(view)` - Get current read-only state
 
 ### Actions
 

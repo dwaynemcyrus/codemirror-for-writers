@@ -4,6 +4,7 @@ import {
   hybridMarkdown,
   toggleTheme,
   toggleHybridMode,
+  toggleReadOnly,
 } from '../lib/index.js';
 import { toolbar } from './toolbar.js';
 import {
@@ -90,6 +91,7 @@ const state = EditorState.create({
         });
         return lineNumbersEnabled;
       },
+      onToggleReadOnly: (view) => toggleReadOnly(view),
     }),
   ],
 });

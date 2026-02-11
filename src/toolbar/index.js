@@ -1,7 +1,7 @@
 import { EditorView } from '@codemirror/view';
 import { undoDepth, redoDepth } from '@codemirror/commands';
 import { actions } from './actions.js';
-import { toggleTheme, toggleHybridMode, toggleLineNumbers, isLineNumbersEnabled } from '../editor/index.js';
+import { toggleTheme, toggleHybridMode, toggleLineNumbers, isLineNumbersEnabled, toggleReadOnly, isReadOnly } from '../editor/index.js';
 
 const toolbarButtons = [
   { icon: '↶', title: 'Undo (Ctrl+Z)', action: 'undo' },
@@ -33,6 +33,7 @@ const toolbarButtons = [
   { icon: '\u201C', title: 'Blockquote', action: 'quote' },
   { type: 'separator' },
   { icon: '123', title: 'Show Line Numbers', action: 'toggleLineNumbers' },
+  { icon: '🔒', title: 'Enable Read Only', action: 'toggleReadOnly' },
   { icon: '\u{1F4C4}', title: 'Toggle Raw Mode', action: 'toggleMode' },
   { icon: '\u263D', title: 'Toggle Dark Mode', action: 'toggleTheme' },
 ];
@@ -99,6 +100,20 @@ export function createToolbar(editorView) {
         e.preventDefault();
         const enabled = toggleLineNumbers(editorView);
         updateLineNumbersButton(enabled);
+        editorView.focus();
+      });
+    } else if (action === 'toggleReadOnly') {
+      btn.id = 'read-only-toggle-btn';
+      const updateReadOnlyButton = (enabled) => {
+        btn.classList.toggle('md-toolbar-btn-pressed', enabled);
+        btn.setAttribute('aria-pressed', String(enabled));
+        btn.title = enabled ? 'Disable Read Only' : 'Enable Read Only';
+      };
+      updateReadOnlyButton(isReadOnly());
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const enabled = toggleReadOnly(editorView);
+        updateReadOnlyButton(enabled);
         editorView.focus();
       });
     } else {

@@ -1,5 +1,6 @@
 import { EditorView, Decoration, WidgetType, ViewPlugin } from '@codemirror/view';
 import { StateField, StateEffect } from '@codemirror/state';
+import { allowReadOnlyEdit } from '../read-only.js';
 import { renderMarkdownLine, renderTable, renderBlockMath } from '../../utils/markdown.js';
 import { highlightCode } from '../../utils/syntax-highlight.js';
 
@@ -90,6 +91,7 @@ class MarkdownPreviewWidget extends WidgetType {
 
         view.dispatch({
           changes: { from: lineFrom, to: lineTo, insert: newContent },
+          annotations: allowReadOnlyEdit.of(true),
         });
         return;
       }

@@ -6,6 +6,7 @@ import { search, searchKeymap } from '@codemirror/search';
 import { hybridPreview } from './extensions/hybrid-preview.js';
 import { markdownKeymap } from './extensions/keymaps.js';
 import { lightTheme, darkTheme } from './theme.js';
+import { allowReadOnlyEdit } from './read-only.js';
 
 // Theme compartment for dynamic switching
 const themeCompartment = new Compartment();
@@ -16,10 +17,27 @@ const hybridPreviewCompartment = new Compartment();
 // Line numbers compartment for toggling gutter visibility
 const lineNumberCompartment = new Compartment();
 
+// Read-only compartments
+const readOnlyCompartment = new Compartment();
+const editableCompartment = new Compartment();
+
+const readOnlyTransactionFilter = EditorState.transactionFilter.of((tr) => {
+  if (!tr.startState.readOnly || !tr.docChanged) {
+    return tr;
+  }
+
+  if (tr.annotation(allowReadOnlyEdit)) {
+    return tr;
+  }
+
+  return { changes: [] };
+});
+
 // Track current states
 let isDarkMode = false;
 let isHybridMode = true;
 let lineNumbersEnabled = false;
+let readOnlyEnabled = false;
 
 // Custom extension to highlight all selected lines (only when editor is focused)
 const selectedLineDecoration = Decoration.line({ class: 'cm-selectedLine' });
@@ -79,6 +97,11 @@ export function createEditor(parent, initialContent = '') {
         ...historyKeymap,
         ...searchKeymap,
       ]),
+
+      // Read-only enforcement
+      readOnlyTransactionFilter,
+      readOnlyCompartment.of(EditorState.readOnly.of(false)),
+      editableCompartment.of(EditorView.editable.of(true)),
 
       // Line numbers (disabled by default)
       lineNumberCompartment.of([]),
@@ -185,6 +208,46 @@ export function setLineNumbers(view, enabled) {
  */
 export function isLineNumbersEnabled() {
   return lineNumbersEnabled;
+}
+
+/**
+ * Toggle read-only mode
+ * Returns the new state (true = read-only, false = editable)
+ */
+export function toggleReadOnly(view) {
+  readOnlyEnabled = !readOnlyEnabled;
+
+  view.dispatch({
+    effects: [
+      readOnlyCompartment.reconfigure(EditorState.readOnly.of(readOnlyEnabled)),
+      editableCompartment.reconfigure(EditorView.editable.of(!readOnlyEnabled)),
+    ],
+  });
+
+  return readOnlyEnabled;
+}
+
+/**
+ * Set read-only mode explicitly
+ * @param {EditorView} view - The editor view
+ * @param {boolean} enabled - Whether the editor is read-only
+ */
+export function setReadOnly(view, enabled) {
+  readOnlyEnabled = Boolean(enabled);
+
+  view.dispatch({
+    effects: [
+      readOnlyCompartment.reconfigure(EditorState.readOnly.of(readOnlyEnabled)),
+      editableCompartment.reconfigure(EditorView.editable.of(!readOnlyEnabled)),
+    ],
+  });
+}
+
+/**
+ * Get current read-only state
+ */
+export function isReadOnly() {
+  return readOnlyEnabled;
 }
 
 /**

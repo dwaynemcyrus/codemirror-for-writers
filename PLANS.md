@@ -286,3 +286,36 @@ Verification
 - `npm run test`
 - `npm run build:lib`
 - `npm run build`
+
+---
+
+## Feature: Read-Only Mode (Task Toggle Exception)
+
+Plan
+1. Add read-only state, compartments, and transaction filtering in both library and app editors.
+2. Allow task toggles to bypass read-only via annotations in hybrid preview handlers.
+3. Add read-only toggle buttons near mode/theme controls in both toolbars.
+4. Update README to document the read-only option and helpers.
+5. Add Playwright coverage for read-only blocking typing and allowing task toggles.
+6. Run verification: `npm run test`, `npm run build:lib`, `npm run build`.
+
+Expected Files
+- lib/index.js
+- lib/extensions/hybrid-preview.js
+- lib/extensions/read-only.js
+- src/editor/index.js
+- src/editor/extensions/hybrid-preview.js
+- src/editor/read-only.js
+- demo/main.js
+- demo/toolbar.js
+- src/toolbar/index.js
+- README.md
+- tests/editor.spec.js
+
+Risks
+- If a command dispatches changes with required effects, filtering may drop them when read-only.
+
+Verification
+- `npm run test`
+- `npm run build:lib`
+- `npm run build`
