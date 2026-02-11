@@ -1,5 +1,5 @@
 import { EditorState, Compartment } from '@codemirror/state';
-import { EditorView, keymap, Decoration, ViewPlugin } from '@codemirror/view';
+import { EditorView, keymap, Decoration, ViewPlugin, lineNumbers } from '@codemirror/view';
 import { markdown } from '@codemirror/lang-markdown';
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
 import { search, searchKeymap } from '@codemirror/search';
@@ -13,9 +13,13 @@ const themeCompartment = new Compartment();
 // Hybrid preview compartment for toggling between hybrid and raw mode
 const hybridPreviewCompartment = new Compartment();
 
+// Line numbers compartment for toggling gutter visibility
+const lineNumberCompartment = new Compartment();
+
 // Track current states
 let isDarkMode = false;
 let isHybridMode = true;
+let lineNumbersEnabled = false;
 
 // Custom extension to highlight all selected lines (only when editor is focused)
 const selectedLineDecoration = Decoration.line({ class: 'cm-selectedLine' });
@@ -75,6 +79,9 @@ export function createEditor(parent, initialContent = '') {
         ...historyKeymap,
         ...searchKeymap,
       ]),
+
+      // Line numbers (disabled by default)
+      lineNumberCompartment.of([]),
 
       // Search panel + keybindings
       search(),
@@ -140,6 +147,40 @@ export function toggleHybridMode(view) {
   document.body.classList.toggle('raw-mode', !isHybridMode);
 
   return isHybridMode;
+}
+
+/**
+ * Toggle line numbers in the gutter
+ * Returns the new state (true = enabled, false = disabled)
+ */
+export function toggleLineNumbers(view) {
+  lineNumbersEnabled = !lineNumbersEnabled;
+
+  view.dispatch({
+    effects: lineNumberCompartment.reconfigure(lineNumbersEnabled ? lineNumbers() : []),
+  });
+
+  return lineNumbersEnabled;
+}
+
+/**
+ * Set line numbers explicitly
+ * @param {EditorView} view - The editor view
+ * @param {boolean} enabled - Whether line numbers are enabled
+ */
+export function setLineNumbers(view, enabled) {
+  lineNumbersEnabled = Boolean(enabled);
+
+  view.dispatch({
+    effects: lineNumberCompartment.reconfigure(lineNumbersEnabled ? lineNumbers() : []),
+  });
+}
+
+/**
+ * Get current line numbers state
+ */
+export function isLineNumbersEnabled() {
+  return lineNumbersEnabled;
 }
 
 /**

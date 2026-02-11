@@ -212,3 +212,30 @@ Verification
 - `npm run test`
 - `npm run build:lib`
 - `npm run build`
+
+---
+
+## Feature: Line Numbers Toggle
+
+Plan
+1. Add a line-number compartment to the demo and app editors, defaulting off.
+2. Add a toolbar toggle button near mode/theme controls in both toolbars.
+3. Add pressed-state styling for the app toolbar toggle.
+4. Add Playwright coverage for toggling line numbers on/off.
+5. Run verification: `npm run test`, `npm run build:lib`, `npm run build`.
+
+Expected Files
+- demo/main.js
+- demo/toolbar.js
+- src/editor/index.js
+- src/toolbar/index.js
+- src/toolbar/toolbar.css
+- tests/editor.spec.js
+
+Risks
+- None; uses CM6 built-in line numbers with a compartment toggle.
+
+Verification
+- `npm run test`
+- `npm run build:lib`
+- `npm run build`

@@ -1,7 +1,7 @@
 import { EditorView } from '@codemirror/view';
 import { undoDepth, redoDepth } from '@codemirror/commands';
 import { actions } from './actions.js';
-import { toggleTheme, toggleHybridMode } from '../editor/index.js';
+import { toggleTheme, toggleHybridMode, toggleLineNumbers, isLineNumbersEnabled } from '../editor/index.js';
 
 const toolbarButtons = [
   { icon: '↶', title: 'Undo (Ctrl+Z)', action: 'undo' },
@@ -30,6 +30,7 @@ const toolbarButtons = [
   { icon: '\u2014', title: 'Horizontal Rule', action: 'hr' },
   { icon: '\u201C', title: 'Blockquote', action: 'quote' },
   { type: 'separator' },
+  { icon: '123', title: 'Show Line Numbers', action: 'toggleLineNumbers' },
   { icon: '\u{1F4C4}', title: 'Toggle Raw Mode', action: 'toggleMode' },
   { icon: '\u263D', title: 'Toggle Dark Mode', action: 'toggleTheme' },
 ];
@@ -82,6 +83,20 @@ export function createToolbar(editorView) {
         // Update icon: document for hybrid mode (preview), hamburger for raw mode
         btn.textContent = isHybrid ? '\u{1F4C4}' : '\u2261';
         btn.title = isHybrid ? 'Toggle Raw Mode' : 'Toggle Preview Mode';
+        editorView.focus();
+      });
+    } else if (action === 'toggleLineNumbers') {
+      btn.id = 'line-numbers-toggle-btn';
+      const updateLineNumbersButton = (enabled) => {
+        btn.classList.toggle('md-toolbar-btn-pressed', enabled);
+        btn.setAttribute('aria-pressed', String(enabled));
+        btn.title = enabled ? 'Hide Line Numbers' : 'Show Line Numbers';
+      };
+      updateLineNumbersButton(isLineNumbersEnabled());
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const enabled = toggleLineNumbers(editorView);
+        updateLineNumbersButton(enabled);
         editorView.focus();
       });
     } else {

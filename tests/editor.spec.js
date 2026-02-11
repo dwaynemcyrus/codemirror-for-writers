@@ -384,6 +384,18 @@ test.describe('Toolbar Actions', () => {
     await expect(page.locator('.cm-search')).toBeVisible();
     await expect(page.locator('.cm-search input[name="replace"]')).toBeVisible();
   });
+
+  test('should toggle line numbers from toolbar', async ({ page }) => {
+    const lineNumbersBtn = page.locator('.cm-md-toolbar-btn[title="Show Line Numbers"]');
+
+    await expect(page.locator('.cm-lineNumbers')).toHaveCount(0);
+
+    await lineNumbersBtn.click();
+    await expect(page.locator('.cm-lineNumbers')).toBeVisible();
+
+    await lineNumbersBtn.click();
+    await expect(page.locator('.cm-lineNumbers')).toHaveCount(0);
+  });
 });
 
 test.describe('Theme and Mode', () => {

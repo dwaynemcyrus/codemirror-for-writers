@@ -42,6 +42,7 @@ const toolbarButtons = [
  * @param {EditorView} view - The editor view
  * @param {Object} callbacks - Optional callbacks for mode toggle
  * @param {Function} callbacks.onToggleMode - Called when mode toggle is clicked
+ * @param {Function} callbacks.onToggleLineNumbers - Called when line numbers toggle is clicked
  */
 function createToolbarDOM(view, callbacks = {}) {
   const toolbar = document.createElement('div');
@@ -104,6 +105,24 @@ function createToolbarDOM(view, callbacks = {}) {
   const spacer = document.createElement('div');
   spacer.className = 'cm-md-toolbar-spacer';
   toolbar.appendChild(spacer);
+
+  // Add line numbers toggle button (pressed = enabled)
+  if (callbacks.onToggleLineNumbers) {
+    const lineNumbersBtn = document.createElement('button');
+    lineNumbersBtn.className = 'cm-md-toolbar-btn';
+    lineNumbersBtn.textContent = '123';
+    lineNumbersBtn.title = 'Show Line Numbers';
+    lineNumbersBtn.setAttribute('aria-pressed', 'false');
+    lineNumbersBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const enabled = callbacks.onToggleLineNumbers(view);
+      lineNumbersBtn.classList.toggle('cm-md-toolbar-btn-pressed', enabled);
+      lineNumbersBtn.setAttribute('aria-pressed', String(enabled));
+      lineNumbersBtn.title = enabled ? 'Hide Line Numbers' : 'Show Line Numbers';
+      view.focus();
+    });
+    toolbar.appendChild(lineNumbersBtn);
+  }
 
   // Add mode toggle button (pressed = raw mode)
   if (callbacks.onToggleMode) {
@@ -234,10 +253,10 @@ export const toolbarTheme = EditorView.baseTheme({
  * @returns {Extension[]} Array of extensions including panel and styles
  */
 export function toolbar(options = {}) {
-  const { onToggleMode } = options;
+  const { onToggleMode, onToggleLineNumbers } = options;
 
   const panelPlugin = showPanel.of((view) => {
-    const { dom, updateHistoryButtons } = createToolbarDOM(view, { onToggleMode });
+    const { dom, updateHistoryButtons } = createToolbarDOM(view, { onToggleMode, onToggleLineNumbers });
     return {
       dom,
       top: true,

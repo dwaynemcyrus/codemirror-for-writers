@@ -1,5 +1,5 @@
-import { EditorState } from '@codemirror/state';
-import { EditorView } from '@codemirror/view';
+import { EditorState, Compartment } from '@codemirror/state';
+import { EditorView, lineNumbers } from '@codemirror/view';
 import {
   hybridMarkdown,
   toggleTheme,
@@ -47,10 +47,15 @@ const wikiLinkTelemetry = {
 };
 window.__wikiLinkTelemetry = wikiLinkTelemetry;
 
+const lineNumberCompartment = new Compartment();
+let lineNumbersEnabled = false;
+
 // Initialize editor with the extension
 const state = EditorState.create({
   doc: initialContent,
   extensions: [
+    lineNumberCompartment.of([]),
+
     // The main hybrid markdown extension
     hybridMarkdown({
       theme: 'light',
@@ -77,6 +82,13 @@ const state = EditorState.create({
         const isDark = toggleTheme(view);
         document.body.classList.toggle('dark-mode', isDark);
         return isHybrid;
+      },
+      onToggleLineNumbers: (view) => {
+        lineNumbersEnabled = !lineNumbersEnabled;
+        view.dispatch({
+          effects: lineNumberCompartment.reconfigure(lineNumbersEnabled ? lineNumbers() : []),
+        });
+        return lineNumbersEnabled;
       },
     }),
   ],
