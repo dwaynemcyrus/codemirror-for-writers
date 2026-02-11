@@ -239,3 +239,50 @@ Verification
 - `npm run test`
 - `npm run build:lib`
 - `npm run build`
+
+---
+
+## Feature: Multiple Selections
+
+Plan
+1. Enable rectangular selection and crosshair cursor in both library and app editor stacks.
+2. Keep existing keymaps (default + search) to preserve Mod-Alt-Arrow cursor add behavior.
+3. Run verification: `npm run test`, `npm run build:lib`, `npm run build`.
+
+Expected Files
+- lib/index.js
+- src/editor/index.js
+
+Risks
+- None; uses CM6 built-in selection features.
+
+Verification
+- `npm run test`
+- `npm run build:lib`
+- `npm run build`
+
+---
+
+## Feature: Multi-Selection Toolbar Actions
+
+Plan
+1. Add toolbar actions for selecting next and all occurrences in both demo and app toolbars.
+2. Place actions near search/replace buttons.
+3. Update README actions list and add Playwright coverage.
+4. Run verification: `npm run test`, `npm run build:lib`, `npm run build`.
+
+Expected Files
+- lib/extensions/actions.js
+- src/toolbar/actions.js
+- demo/toolbar.js
+- src/toolbar/index.js
+- README.md
+- tests/editor.spec.js
+
+Risks
+- Selection background visibility may vary by theme; tests may need minor adjustment.
+
+Verification
+- `npm run test`
+- `npm run build:lib`
+- `npm run build`

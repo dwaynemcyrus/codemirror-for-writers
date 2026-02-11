@@ -396,6 +396,36 @@ test.describe('Toolbar Actions', () => {
     await lineNumbersBtn.click();
     await expect(page.locator('.cm-lineNumbers')).toHaveCount(0);
   });
+
+  test('should select next occurrence from toolbar', async ({ page }) => {
+    const selectNextBtn = page.locator('.cm-md-toolbar-btn[title="Select Next Occurrence (Ctrl+D)"]');
+
+    await page.keyboard.type('alpha beta alpha');
+    await page.keyboard.press('Home');
+    await page.keyboard.down('Shift');
+    for (let i = 0; i < 5; i++) {
+      await page.keyboard.press('ArrowRight');
+    }
+    await page.keyboard.up('Shift');
+
+    await selectNextBtn.click();
+    await expect(page.locator('.cm-selectionBackground')).toHaveCount(2);
+  });
+
+  test('should select all occurrences from toolbar', async ({ page }) => {
+    const selectAllBtn = page.locator('.cm-md-toolbar-btn[title="Select All Occurrences (Ctrl+Shift+L)"]');
+
+    await page.keyboard.type('alpha beta alpha');
+    await page.keyboard.press('Home');
+    await page.keyboard.down('Shift');
+    for (let i = 0; i < 5; i++) {
+      await page.keyboard.press('ArrowRight');
+    }
+    await page.keyboard.up('Shift');
+
+    await selectAllBtn.click();
+    await expect(page.locator('.cm-selectionBackground')).toHaveCount(2);
+  });
 });
 
 test.describe('Theme and Mode', () => {

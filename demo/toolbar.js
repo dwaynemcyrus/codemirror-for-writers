@@ -10,6 +10,8 @@ const toolbarButtons = [
   { icon: '↷', title: 'Redo (Ctrl+Shift+Z)', action: 'redo' },
   { icon: '🔍', title: 'Search (Ctrl+F)', action: 'search' },
   { icon: '🔁', title: 'Replace (Ctrl+Shift+F)', action: 'replace' },
+  { icon: '⧉', title: 'Select Next Occurrence (Ctrl+D)', action: 'selectNextOccurrence' },
+  { icon: '⧉⧉', title: 'Select All Occurrences (Ctrl+Shift+L)', action: 'selectAllOccurrences' },
   { type: 'separator' },
   { icon: 'B', title: 'Bold (Ctrl+B)', action: 'bold', style: 'font-weight: bold' },
   { icon: 'I', title: 'Italic (Ctrl+I)', action: 'italic', style: 'font-style: italic' },

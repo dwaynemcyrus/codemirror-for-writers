@@ -1,5 +1,5 @@
 import { EditorState, Compartment } from '@codemirror/state';
-import { EditorView, keymap, Decoration, ViewPlugin, lineNumbers } from '@codemirror/view';
+import { EditorView, keymap, Decoration, ViewPlugin, lineNumbers, rectangularSelection, crosshairCursor } from '@codemirror/view';
 import { markdown } from '@codemirror/lang-markdown';
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
 import { search, searchKeymap } from '@codemirror/search';
@@ -85,6 +85,10 @@ export function createEditor(parent, initialContent = '') {
 
       // Search panel + keybindings
       search(),
+
+      // Multiple selections (rectangular selection + crosshair cursor)
+      rectangularSelection(),
+      crosshairCursor(),
 
       // Markdown language support (for raw lines)
       markdown(),

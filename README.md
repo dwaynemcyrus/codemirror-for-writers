@@ -79,7 +79,7 @@ The `actions` export provides formatting functions for building custom toolbars:
 ```javascript
 import { actions } from 'codemirror-for-writers';
 
-// Available actions: undo, redo, search, replace, bold, italic, strikethrough, h1, h2, h3,
+// Available actions: undo, redo, search, replace, selectNextOccurrence, selectAllOccurrences, bold, italic, strikethrough, h1, h2, h3,
 // link, image, bulletList, numberedList, taskList, inlineCode,
 // codeBlock, hr, quote, table, diagram, emoji
 actions.bold(view);
