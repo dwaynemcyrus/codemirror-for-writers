@@ -319,3 +319,28 @@ Verification
 - `npm run test`
 - `npm run build:lib`
 - `npm run build`
+
+---
+
+## Feature: Scroll Past End Toggle
+
+Plan
+1. Add a scroll-past-end compartment to the app editor and demo editor, defaulting on.
+2. Add a toolbar toggle button next to line numbers in both toolbars.
+3. Update state helpers for toggling and pressed-state UI.
+4. Run verification: `npm run test`, `npm run build:lib`, `npm run build`.
+
+Expected Files
+- src/editor/index.js
+- src/toolbar/index.js
+- demo/main.js
+- demo/toolbar.js
+- PLANS.md
+
+Risks
+- None; uses CM6 built-in scroll-past-end extension with a compartment toggle.
+
+Verification
+- `npm run test`
+- `npm run build:lib`
+- `npm run build`

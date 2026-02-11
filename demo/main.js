@@ -1,5 +1,5 @@
 import { EditorState, Compartment } from '@codemirror/state';
-import { EditorView, lineNumbers } from '@codemirror/view';
+import { EditorView, lineNumbers, scrollPastEnd } from '@codemirror/view';
 import {
   hybridMarkdown,
   toggleTheme,
@@ -50,12 +50,15 @@ window.__wikiLinkTelemetry = wikiLinkTelemetry;
 
 const lineNumberCompartment = new Compartment();
 let lineNumbersEnabled = false;
+const scrollPastEndCompartment = new Compartment();
+let scrollPastEndEnabled = true;
 
 // Initialize editor with the extension
 const state = EditorState.create({
   doc: initialContent,
   extensions: [
     lineNumberCompartment.of([]),
+    scrollPastEndCompartment.of(scrollPastEnd()),
 
     // The main hybrid markdown extension
     hybridMarkdown({
@@ -90,6 +93,13 @@ const state = EditorState.create({
           effects: lineNumberCompartment.reconfigure(lineNumbersEnabled ? lineNumbers() : []),
         });
         return lineNumbersEnabled;
+      },
+      onToggleScrollPastEnd: (view) => {
+        scrollPastEndEnabled = !scrollPastEndEnabled;
+        view.dispatch({
+          effects: scrollPastEndCompartment.reconfigure(scrollPastEndEnabled ? scrollPastEnd() : []),
+        });
+        return scrollPastEndEnabled;
       },
       onToggleReadOnly: (view) => toggleReadOnly(view),
     }),

@@ -45,6 +45,7 @@ const toolbarButtons = [
  * @param {Object} callbacks - Optional callbacks for mode toggle
  * @param {Function} callbacks.onToggleMode - Called when mode toggle is clicked
  * @param {Function} callbacks.onToggleLineNumbers - Called when line numbers toggle is clicked
+ * @param {Function} callbacks.onToggleScrollPastEnd - Called when scroll past end toggle is clicked
  * @param {Function} callbacks.onToggleReadOnly - Called when read-only toggle is clicked
  */
 function createToolbarDOM(view, callbacks = {}) {
@@ -125,6 +126,24 @@ function createToolbarDOM(view, callbacks = {}) {
       view.focus();
     });
     toolbar.appendChild(lineNumbersBtn);
+  }
+
+  // Add scroll past end toggle button (pressed = enabled)
+  if (callbacks.onToggleScrollPastEnd) {
+    const scrollPastBtn = document.createElement('button');
+    scrollPastBtn.className = 'cm-md-toolbar-btn cm-md-toolbar-btn-pressed';
+    scrollPastBtn.textContent = '↧';
+    scrollPastBtn.title = 'Disable Scroll Past End';
+    scrollPastBtn.setAttribute('aria-pressed', 'true');
+    scrollPastBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const enabled = callbacks.onToggleScrollPastEnd(view);
+      scrollPastBtn.classList.toggle('cm-md-toolbar-btn-pressed', enabled);
+      scrollPastBtn.setAttribute('aria-pressed', String(enabled));
+      scrollPastBtn.title = enabled ? 'Disable Scroll Past End' : 'Enable Scroll Past End';
+      view.focus();
+    });
+    toolbar.appendChild(scrollPastBtn);
   }
 
   // Add read-only toggle button (pressed = enabled)
@@ -274,10 +293,10 @@ export const toolbarTheme = EditorView.baseTheme({
  * @returns {Extension[]} Array of extensions including panel and styles
  */
 export function toolbar(options = {}) {
-  const { onToggleMode, onToggleLineNumbers, onToggleReadOnly } = options;
+  const { onToggleMode, onToggleLineNumbers, onToggleScrollPastEnd, onToggleReadOnly } = options;
 
   const panelPlugin = showPanel.of((view) => {
-    const { dom, updateHistoryButtons } = createToolbarDOM(view, { onToggleMode, onToggleLineNumbers, onToggleReadOnly });
+    const { dom, updateHistoryButtons } = createToolbarDOM(view, { onToggleMode, onToggleLineNumbers, onToggleScrollPastEnd, onToggleReadOnly });
     return {
       dom,
       top: true,

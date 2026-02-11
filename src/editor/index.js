@@ -1,5 +1,5 @@
 import { EditorState, Compartment } from '@codemirror/state';
-import { EditorView, keymap, Decoration, ViewPlugin, lineNumbers, rectangularSelection, crosshairCursor } from '@codemirror/view';
+import { EditorView, keymap, Decoration, ViewPlugin, lineNumbers, rectangularSelection, crosshairCursor, scrollPastEnd } from '@codemirror/view';
 import { markdown } from '@codemirror/lang-markdown';
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
 import { search, searchKeymap } from '@codemirror/search';
@@ -16,6 +16,9 @@ const hybridPreviewCompartment = new Compartment();
 
 // Line numbers compartment for toggling gutter visibility
 const lineNumberCompartment = new Compartment();
+
+// Scroll past end compartment for toggling extra scroll space
+const scrollPastEndCompartment = new Compartment();
 
 // Read-only compartments
 const readOnlyCompartment = new Compartment();
@@ -37,6 +40,7 @@ const readOnlyTransactionFilter = EditorState.transactionFilter.of((tr) => {
 let isDarkMode = false;
 let isHybridMode = true;
 let lineNumbersEnabled = false;
+let scrollPastEndEnabled = true;
 let readOnlyEnabled = false;
 
 // Custom extension to highlight all selected lines (only when editor is focused)
@@ -105,6 +109,9 @@ export function createEditor(parent, initialContent = '') {
 
       // Line numbers (disabled by default)
       lineNumberCompartment.of([]),
+
+      // Scroll past end (enabled by default)
+      scrollPastEndCompartment.of(scrollPastEnd()),
 
       // Search panel + keybindings
       search(),
@@ -208,6 +215,40 @@ export function setLineNumbers(view, enabled) {
  */
 export function isLineNumbersEnabled() {
   return lineNumbersEnabled;
+}
+
+/**
+ * Toggle scroll past end
+ * Returns the new state (true = enabled, false = disabled)
+ */
+export function toggleScrollPastEnd(view) {
+  scrollPastEndEnabled = !scrollPastEndEnabled;
+
+  view.dispatch({
+    effects: scrollPastEndCompartment.reconfigure(scrollPastEndEnabled ? scrollPastEnd() : []),
+  });
+
+  return scrollPastEndEnabled;
+}
+
+/**
+ * Set scroll past end explicitly
+ * @param {EditorView} view - The editor view
+ * @param {boolean} enabled - Whether scroll past end is enabled
+ */
+export function setScrollPastEnd(view, enabled) {
+  scrollPastEndEnabled = Boolean(enabled);
+
+  view.dispatch({
+    effects: scrollPastEndCompartment.reconfigure(scrollPastEndEnabled ? scrollPastEnd() : []),
+  });
+}
+
+/**
+ * Get current scroll past end state
+ */
+export function isScrollPastEndEnabled() {
+  return scrollPastEndEnabled;
 }
 
 /**
