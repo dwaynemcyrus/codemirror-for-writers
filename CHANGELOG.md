@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.7.0
+
+### Added
+- Typewriter mode: keeps the cursor line vertically centered while typing or navigating. Toggle via `toggleTypewriter()` / toolbar button.
+- Focus mode: dims all paragraphs except the one containing the cursor to 25% opacity. Supports multiple cursors and clears on blur. Toggle via `toggleFocusMode()` / toolbar button.
+- Toolbar buttons for typewriter mode (≡) and focus mode (◎).
+- Exported `typewriterPlugin`, `focusModePlugin` for advanced composition.
+- Exported `setTypewriter()`, `isTypewriter()`, `setFocusMode()`, `isFocusMode()` for programmatic control.
+
+### Changed
+- Typography overhaul: switched from system sans-serif to Charter serif font stack (`Charter, "Bitstream Charter", "Sitka Text", Cambria, serif`).
+- Font size increased from 16px to 17px, line height from 1.6 to 1.75.
+- Content padding widened from 20px to 20px 48px for more comfortable reading margins.
+- Line padding increased from 2px to 4px.
+- Heading colors refined to blue-tinted grays (light) and warm gray progression (dark).
+- Horizontal rules now use gradient backgrounds instead of solid borders.
+- Blockquote border colors softened (`#c0c8d0` light, `#4a4a5a` dark).
+- Blockquote padding-left increased from 12px to 16px.
+
 ## v1.6.0
 
 ### Added

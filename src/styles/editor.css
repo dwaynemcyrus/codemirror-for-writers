@@ -16,7 +16,13 @@
 }
 
 .cm-line {
-  padding: 2px 4px;
+  padding: 4px 4px;
+}
+
+/* Focus mode: unfocused lines */
+.cm-unfocused-line {
+  opacity: 0.25;
+  transition: opacity 0.2s ease;
 }
 
 .cm-wikilink {

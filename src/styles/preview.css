@@ -12,32 +12,32 @@
 
 .cm-markdown-preview .md-h1 {
   font-size: 2em;
-  color: #1a1a1a;
+  color: #1a1a2e;
 }
 
 .cm-markdown-preview .md-h2 {
   font-size: 1.5em;
-  color: #2a2a2a;
+  color: #2d2d3f;
 }
 
 .cm-markdown-preview .md-h3 {
   font-size: 1.25em;
-  color: #3a3a3a;
+  color: #3d3d4d;
 }
 
 .cm-markdown-preview .md-h4 {
   font-size: 1.1em;
-  color: #4a4a4a;
+  color: #555566;
 }
 
 .cm-markdown-preview .md-h5 {
   font-size: 1em;
-  color: #5a5a5a;
+  color: #666677;
 }
 
 .cm-markdown-preview .md-h6 {
   font-size: 0.9em;
-  color: #6a6a6a;
+  color: #777788;
 }
 
 /* Bold and italic */
@@ -93,8 +93,8 @@
   display: inline;
   color: #555;
   font-style: italic;
-  border-left: 3px solid #ddd;
-  padding-left: 12px;
+  border-left: 3px solid #c0c8d0;
+  padding-left: 16px;
   margin-left: 0;
 }
 
@@ -113,8 +113,9 @@
 .cm-markdown-preview hr {
   display: block;
   border: none;
-  border-top: 2px solid #dee2e6;
-  margin: 8px 0;
+  margin: 16px 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c0c8d0, transparent);
 }
 
 /* Checkboxes for task lists */
@@ -264,12 +265,12 @@
 /* ==================== */
 
 /* Dark mode headers */
-.dark-mode .cm-markdown-preview .md-h1 { color: #e0e0e0; }
-.dark-mode .cm-markdown-preview .md-h2 { color: #d0d0d0; }
-.dark-mode .cm-markdown-preview .md-h3 { color: #c0c0c0; }
-.dark-mode .cm-markdown-preview .md-h4 { color: #b0b0b0; }
-.dark-mode .cm-markdown-preview .md-h5 { color: #a0a0a0; }
-.dark-mode .cm-markdown-preview .md-h6 { color: #909090; }
+.dark-mode .cm-markdown-preview .md-h1 { color: #e8e8ec; }
+.dark-mode .cm-markdown-preview .md-h2 { color: #d5d5db; }
+.dark-mode .cm-markdown-preview .md-h3 { color: #c2c2ca; }
+.dark-mode .cm-markdown-preview .md-h4 { color: #acacb8; }
+.dark-mode .cm-markdown-preview .md-h5 { color: #9696a4; }
+.dark-mode .cm-markdown-preview .md-h6 { color: #808090; }
 
 /* Dark mode text */
 .dark-mode .cm-markdown-preview del { color: #777; }
@@ -283,7 +284,7 @@
 /* Dark mode blockquotes */
 .dark-mode .cm-markdown-preview .md-blockquote {
   color: #aaa;
-  border-left-color: #555;
+  border-left-color: #4a4a5a;
 }
 
 /* Dark mode list markers */
@@ -292,7 +293,7 @@
 /* Dark mode horizontal rule */
 .dark-mode .cm-markdown-preview .md-hr,
 .dark-mode .cm-markdown-preview hr {
-  border-top-color: #444;
+  background: linear-gradient(to right, transparent, #4a4a5a, transparent);
 }
 
 /* Dark mode code block lines */

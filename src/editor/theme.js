@@ -4,15 +4,15 @@ import { EditorView } from '@codemirror/view';
 const baseTheme = {
   '&': {
     height: '100%',
-    fontSize: '16px',
+    fontSize: '17px',
   },
   '.cm-content': {
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-    padding: '20px',
-    lineHeight: '1.6',
+    fontFamily: 'Charter, "Bitstream Charter", "Sitka Text", Cambria, serif',
+    padding: '20px 48px',
+    lineHeight: '1.75',
   },
   '.cm-line': {
-    padding: '2px 0',
+    padding: '4px 0',
   },
   '.cm-scroller': {
     overflow: 'auto',

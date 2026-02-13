@@ -5,6 +5,8 @@ import {
   toggleTheme,
   toggleHybridMode,
   toggleReadOnly,
+  toggleTypewriter,
+  toggleFocusMode,
 } from '../lib/index.js';
 import { toolbar } from './toolbar.js';
 import {
@@ -102,6 +104,8 @@ const state = EditorState.create({
         return scrollPastEndEnabled;
       },
       onToggleReadOnly: (view) => toggleReadOnly(view),
+      onToggleTypewriter: (view) => toggleTypewriter(view),
+      onToggleFocusMode: (view) => toggleFocusMode(view),
     }),
   ],
 });

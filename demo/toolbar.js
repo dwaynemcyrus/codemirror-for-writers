@@ -47,6 +47,8 @@ const toolbarButtons = [
  * @param {Function} callbacks.onToggleLineNumbers - Called when line numbers toggle is clicked
  * @param {Function} callbacks.onToggleScrollPastEnd - Called when scroll past end toggle is clicked
  * @param {Function} callbacks.onToggleReadOnly - Called when read-only toggle is clicked
+ * @param {Function} callbacks.onToggleTypewriter - Called when typewriter mode toggle is clicked
+ * @param {Function} callbacks.onToggleFocusMode - Called when focus mode toggle is clicked
  */
 function createToolbarDOM(view, callbacks = {}) {
   const toolbar = document.createElement('div');
@@ -162,6 +164,42 @@ function createToolbarDOM(view, callbacks = {}) {
       view.focus();
     });
     toolbar.appendChild(readOnlyBtn);
+  }
+
+  // Add typewriter mode toggle button
+  if (callbacks.onToggleTypewriter) {
+    const typewriterBtn = document.createElement('button');
+    typewriterBtn.className = 'cm-md-toolbar-btn';
+    typewriterBtn.textContent = '\u2261';
+    typewriterBtn.title = 'Enable Typewriter Mode';
+    typewriterBtn.setAttribute('aria-pressed', 'false');
+    typewriterBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const enabled = callbacks.onToggleTypewriter(view);
+      typewriterBtn.classList.toggle('cm-md-toolbar-btn-pressed', enabled);
+      typewriterBtn.setAttribute('aria-pressed', String(enabled));
+      typewriterBtn.title = enabled ? 'Disable Typewriter Mode' : 'Enable Typewriter Mode';
+      view.focus();
+    });
+    toolbar.appendChild(typewriterBtn);
+  }
+
+  // Add focus mode toggle button
+  if (callbacks.onToggleFocusMode) {
+    const focusModeBtn = document.createElement('button');
+    focusModeBtn.className = 'cm-md-toolbar-btn';
+    focusModeBtn.textContent = '\u25CE';
+    focusModeBtn.title = 'Enable Focus Mode';
+    focusModeBtn.setAttribute('aria-pressed', 'false');
+    focusModeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const enabled = callbacks.onToggleFocusMode(view);
+      focusModeBtn.classList.toggle('cm-md-toolbar-btn-pressed', enabled);
+      focusModeBtn.setAttribute('aria-pressed', String(enabled));
+      focusModeBtn.title = enabled ? 'Disable Focus Mode' : 'Enable Focus Mode';
+      view.focus();
+    });
+    toolbar.appendChild(focusModeBtn);
   }
 
   // Add mode toggle button (pressed = raw mode)
@@ -293,10 +331,10 @@ export const toolbarTheme = EditorView.baseTheme({
  * @returns {Extension[]} Array of extensions including panel and styles
  */
 export function toolbar(options = {}) {
-  const { onToggleMode, onToggleLineNumbers, onToggleScrollPastEnd, onToggleReadOnly } = options;
+  const { onToggleMode, onToggleLineNumbers, onToggleScrollPastEnd, onToggleReadOnly, onToggleTypewriter, onToggleFocusMode } = options;
 
   const panelPlugin = showPanel.of((view) => {
-    const { dom, updateHistoryButtons } = createToolbarDOM(view, { onToggleMode, onToggleLineNumbers, onToggleScrollPastEnd, onToggleReadOnly });
+    const { dom, updateHistoryButtons } = createToolbarDOM(view, { onToggleMode, onToggleLineNumbers, onToggleScrollPastEnd, onToggleReadOnly, onToggleTypewriter, onToggleFocusMode });
     return {
       dom,
       top: true,
