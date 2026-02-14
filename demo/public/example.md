@@ -15,6 +15,8 @@ A [markdown](https://www.markdownguide.org/cheat-sheet/#basic-syntax) editor tha
 
 Check out the [repo](https://github.com/tiagosimoes/codemirror-markdown-hybrid) to use this in your projects.
 
+![A sample placeholder image](https://placehold.co/600x300/e8f0fe/1a73e8?text=Inline+Image+Preview)
+
 ## Features
 
 - **Editable preview** - Click anywhere to edit that line or block using markdown
