@@ -7,6 +7,8 @@ Feature recommendations for combining Bear's writing experience, Obsidian's prop
 - [x] **Typewriter Mode** - Keep the active line vertically centered as you type *(v1.7.0)*
 - [x] **Focus Mode** - Dim all text except the current paragraph to 25% opacity *(v1.7.0)*
 - [x] **Typography & Spacing Overhaul** - Charter serif font, 17px/1.75 line height, wider margins, refined heading colors, gradient HRs *(v1.7.0)*
+- [x] **YAML Frontmatter / Properties Editor** - Obsidian-style key-value table with inline editing, js-yaml round-trip *(v1.8.0)*
+- [x] **Word/Character/Reading Time Counter** - Toggleable status bar with live word, character, and reading time stats *(v1.8.0)*
 
 ## Not Yet Implemented
 
@@ -14,8 +16,6 @@ Feature recommendations for combining Bear's writing experience, Obsidian's prop
 
 | # | Feature | Effort | Impact | Source |
 |---|---------|--------|--------|--------|
-| 4 | YAML Frontmatter / Properties Editor | High | High | Obsidian |
-| 5 | Word/Character/Reading Time Counter | Low | Medium | iA Writer |
 | 6 | Inline Image Preview | Medium | Medium | Bear |
 
 ### Medium Priority
