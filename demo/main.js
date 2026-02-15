@@ -9,14 +9,12 @@ import {
   toggleFocusMode,
   toggleWordCount,
   tagAutocomplete,
-} from '../lib/index.js';
-import { autocompletion } from '@codemirror/autocomplete';
-import { toolbar } from './toolbar.js';
-import {
   createNoteIndex,
   resolveWikiLink,
   wikiLinkAutocomplete,
-} from './wiki-link-autocomplete.js';
+} from '../lib/index.js';
+import { autocompletion } from '@codemirror/autocomplete';
+import { toolbar } from './toolbar.js';
 import 'katex/dist/katex.min.css';
 import './styles.css';
 import exampleContent from './public/example.md?raw';
