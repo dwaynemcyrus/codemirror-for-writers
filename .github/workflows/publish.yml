@@ -5,8 +5,10 @@ on:
     branches: [main]
     paths:
       - 'package.json'
+      - 'package-lock.json'
       - 'lib/**'
-      - 'src/**'
+      - 'lib/index.d.ts'
+      - 'vite.lib.config.js'
 
 jobs:
   publish:
@@ -32,7 +34,7 @@ jobs:
       - name: Check if version changed
         id: version
         run: |
-          CURRENT=$(npm view codemirror-markdown-hybrid version 2>/dev/null || echo "0.0.0")
+          CURRENT=$(npm view codemirror-for-writers version 2>/dev/null || echo "0.0.0")
           NEW=$(node -p "require('./package.json').version")
           if [ "$CURRENT" != "$NEW" ]; then
             echo "changed=true" >> $GITHUB_OUTPUT

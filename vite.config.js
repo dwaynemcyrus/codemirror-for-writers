@@ -7,7 +7,8 @@ export default defineConfig({
     outDir: '../dist-demo',
   },
   server: {
-    port: 3000,
-    open: true,
+    port: 4173,
+    host: '127.0.0.1',
+    open: false,
   },
 });
