@@ -90,6 +90,12 @@ Bottom panel showing incoming links to the current document. Provide an async `o
 ### Custom Task Types
 Beyond standard `[x]` checkboxes, supports emoji-based task types: `[i]` info, `[!]` important, `[?]` question, `[*]` star, `[>]` forward, `[<]` schedule. Task types cycle on click.
 
+### Bottom Toolbar
+Mobile-friendly formatting toolbar at the bottom of the editor with undo/redo, text formatting, lists, and more. Horizontally scrollable with overscroll containment to prevent browser navigation gestures.
+
+### More Menu
+A `⋯` button in the top-right corner of the editor that opens a dropdown with toggle items (theme, mode, read-only, typewriter, focus mode, word count, properties). Checkmarks indicate active state.
+
 ### Additional
 - Light and dark themes with dynamic switching
 - Syntax-highlighted code blocks (JavaScript, Python, CSS, HTML, JSON)
@@ -137,6 +143,7 @@ Main extension function. Returns an array of CodeMirror extensions.
 | `docTitle` | `string` | — | Document title for backlinks (falls back to frontmatter `title`) |
 | `onBacklinksRequested` | `(title) => Promise<Array>` | — | Async resolver returning backlinks |
 | `onBacklinkClick` | `(backlink) => void` | — | Handler for backlink clicks |
+| `frontmatterKeys` | `string[]` | — | Known frontmatter keys for autocomplete in the properties sheet |
 
 ### Runtime Toggle Functions
 
@@ -151,16 +158,58 @@ import {
   toggleFocusMode, setFocusMode, isFocusMode,
   toggleWordCount, setWordCount, isWordCount,
   toggleBacklinks, setBacklinks, isBacklinks,
+  toggleFrontmatterSheet, setFrontmatterSheet, isFrontmatterSheet,
 } from 'codemirror-for-writers';
 
-toggleTheme(view);         // returns true if now dark
-toggleHybridMode(view);    // returns true if now hybrid
-toggleReadOnly(view);      // returns true if now read-only
-toggleTypewriter(view);    // returns true if now enabled
-toggleFocusMode(view);     // returns true if now enabled
-toggleWordCount(view);     // returns true if now shown
-toggleBacklinks(view);     // returns true if now shown
+toggleTheme(view);              // returns true if now dark
+toggleHybridMode(view);         // returns true if now hybrid
+toggleReadOnly(view);           // returns true if now read-only
+toggleTypewriter(view);         // returns true if now enabled
+toggleFocusMode(view);          // returns true if now enabled
+toggleWordCount(view);          // returns true if now shown
+toggleBacklinks(view);          // returns true if now shown
+toggleFrontmatterSheet(view);   // returns true if now open
 ```
+
+### `bottomToolbar(options?)`
+
+Bottom formatting toolbar. Returns an array of CodeMirror extensions.
+
+```javascript
+import { bottomToolbar } from 'codemirror-for-writers';
+
+bottomToolbar();
+
+// With custom extra buttons
+bottomToolbar({
+  extraButtons: [
+    { icon: '⚙', title: 'Settings', handler: (view) => { /* ... */ } },
+  ],
+});
+```
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `buttons` | `Array` | built-in set | Override the default button set |
+| `extraButtons` | `Array<{icon, title, handler}>` | `[]` | Additional buttons appended after defaults |
+
+### `moreMenu(options?)`
+
+Dropdown menu button (⋯) positioned top-right of the editor. Returns an array of CodeMirror extensions.
+
+```javascript
+import { moreMenu, toggleTheme, getTheme } from 'codemirror-for-writers';
+
+moreMenu({
+  items: [
+    { label: 'Dark mode', handler: (v) => toggleTheme(v), getState: (v) => getTheme(v) === 'dark' },
+  ],
+});
+```
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `items` | `Array<{label, handler, getState?}>` | Menu items. `handler(view)` is called on click. `getState(view)` returns `true` to show a checkmark. |
 
 ### Actions
 
