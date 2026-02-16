@@ -1,21 +1,29 @@
-import { EditorState, Compartment } from '@codemirror/state';
-import { EditorView, lineNumbers, scrollPastEnd } from '@codemirror/view';
+import { EditorState } from '@codemirror/state';
+import { EditorView, scrollPastEnd } from '@codemirror/view';
 import {
   hybridMarkdown,
   toggleTheme,
+  getTheme,
   toggleHybridMode,
+  getMode,
   toggleReadOnly,
+  isReadOnly,
   toggleTypewriter,
+  isTypewriter,
   toggleFocusMode,
+  isFocusMode,
   toggleWordCount,
+  isWordCount,
   toggleFrontmatterSheet,
+  isFrontmatterSheet,
   tagAutocomplete,
   createNoteIndex,
   resolveWikiLink,
   wikiLinkAutocomplete,
+  bottomToolbar,
+  moreMenu,
 } from '../lib/index.js';
 import { autocompletion } from '@codemirror/autocomplete';
-import { toolbar } from './toolbar.js';
 import 'katex/dist/katex.min.css';
 import './styles.css';
 import exampleContent from './public/example.md?raw';
@@ -52,17 +60,11 @@ const wikiLinkTelemetry = {
 };
 window.__wikiLinkTelemetry = wikiLinkTelemetry;
 
-const lineNumberCompartment = new Compartment();
-let lineNumbersEnabled = false;
-const scrollPastEndCompartment = new Compartment();
-let scrollPastEndEnabled = true;
-
 // Initialize editor with the extension
 const state = EditorState.create({
   doc: initialContent,
   extensions: [
-    lineNumberCompartment.of([]),
-    scrollPastEndCompartment.of(scrollPastEnd()),
+    scrollPastEnd(),
 
     // The main hybrid markdown extension
     hybridMarkdown({
@@ -110,35 +112,20 @@ const state = EditorState.create({
       ],
     }),
 
-    // Optional: Add the toolbar with toggle callback
-    toolbar({
-      onToggleMode: (view) => {
-        const isHybrid = toggleHybridMode(view);
-        document.body.classList.toggle('raw-mode', !isHybrid);
-        // Also toggle theme: raw mode = dark, hybrid mode = light
-        const isDark = toggleTheme(view);
-        document.body.classList.toggle('dark-mode', isDark);
-        return isHybrid;
-      },
-      onToggleLineNumbers: (view) => {
-        lineNumbersEnabled = !lineNumbersEnabled;
-        view.dispatch({
-          effects: lineNumberCompartment.reconfigure(lineNumbersEnabled ? lineNumbers() : []),
-        });
-        return lineNumbersEnabled;
-      },
-      onToggleScrollPastEnd: (view) => {
-        scrollPastEndEnabled = !scrollPastEndEnabled;
-        view.dispatch({
-          effects: scrollPastEndCompartment.reconfigure(scrollPastEndEnabled ? scrollPastEnd() : []),
-        });
-        return scrollPastEndEnabled;
-      },
-      onToggleReadOnly: (view) => toggleReadOnly(view),
-      onToggleTypewriter: (view) => toggleTypewriter(view),
-      onToggleFocusMode: (view) => toggleFocusMode(view),
-      onToggleWordCount: (view) => toggleWordCount(view),
-      onToggleFrontmatterSheet: (view) => toggleFrontmatterSheet(view),
+    // Bottom toolbar with formatting buttons
+    bottomToolbar(),
+
+    // More menu (top-right ⋯ button with toggle items)
+    moreMenu({
+      items: [
+        { label: 'Dark mode', handler: (v) => toggleTheme(v), getState: (v) => getTheme(v) === 'dark' },
+        { label: 'Raw mode', handler: (v) => { toggleHybridMode(v); }, getState: (v) => getMode(v) === 'raw' },
+        { label: 'Read-only', handler: (v) => toggleReadOnly(v), getState: (v) => isReadOnly(v) },
+        { label: 'Typewriter', handler: (v) => toggleTypewriter(v), getState: (v) => isTypewriter(v) },
+        { label: 'Focus mode', handler: (v) => toggleFocusMode(v), getState: (v) => isFocusMode(v) },
+        { label: 'Word count', handler: (v) => toggleWordCount(v), getState: (v) => isWordCount(v) },
+        { label: 'Properties', handler: (v) => toggleFrontmatterSheet(v), getState: (v) => isFrontmatterSheet(v) },
+      ],
     }),
   ],
 });

@@ -40,9 +40,3 @@ body {
   height: 100%;
 }
 
-/* Dark mode styles for demo wrapper */
-.dark-mode .editor-wrapper {
-  border-color: #3c3c3c;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
