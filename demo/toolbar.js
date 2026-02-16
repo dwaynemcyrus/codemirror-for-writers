@@ -113,6 +113,24 @@ function createToolbarDOM(view, callbacks = {}) {
   spacer.className = 'cm-md-toolbar-spacer';
   toolbar.appendChild(spacer);
 
+  // Add frontmatter sheet toggle button
+  if (callbacks.onToggleFrontmatterSheet) {
+    const sheetBtn = document.createElement('button');
+    sheetBtn.className = 'cm-md-toolbar-btn';
+    sheetBtn.textContent = '\u2630';
+    sheetBtn.title = 'Show Properties';
+    sheetBtn.style.cssText = 'font-size: 13px';
+    sheetBtn.setAttribute('aria-pressed', 'false');
+    sheetBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const isOpen = callbacks.onToggleFrontmatterSheet(view);
+      sheetBtn.classList.toggle('cm-md-toolbar-btn-pressed', isOpen);
+      sheetBtn.setAttribute('aria-pressed', String(isOpen));
+      sheetBtn.title = isOpen ? 'Hide Properties' : 'Show Properties';
+    });
+    toolbar.appendChild(sheetBtn);
+  }
+
   // Add line numbers toggle button (pressed = enabled)
   if (callbacks.onToggleLineNumbers) {
     const lineNumbersBtn = document.createElement('button');
@@ -351,10 +369,10 @@ export const toolbarTheme = EditorView.baseTheme({
  * @returns {Extension[]} Array of extensions including panel and styles
  */
 export function toolbar(options = {}) {
-  const { onToggleMode, onToggleLineNumbers, onToggleScrollPastEnd, onToggleReadOnly, onToggleTypewriter, onToggleFocusMode, onToggleWordCount } = options;
+  const { onToggleMode, onToggleLineNumbers, onToggleScrollPastEnd, onToggleReadOnly, onToggleTypewriter, onToggleFocusMode, onToggleWordCount, onToggleFrontmatterSheet } = options;
 
   const panelPlugin = showPanel.of((view) => {
-    const { dom, updateHistoryButtons } = createToolbarDOM(view, { onToggleMode, onToggleLineNumbers, onToggleScrollPastEnd, onToggleReadOnly, onToggleTypewriter, onToggleFocusMode, onToggleWordCount });
+    const { dom, updateHistoryButtons } = createToolbarDOM(view, { onToggleMode, onToggleLineNumbers, onToggleScrollPastEnd, onToggleReadOnly, onToggleTypewriter, onToggleFocusMode, onToggleWordCount, onToggleFrontmatterSheet });
     return {
       dom,
       top: true,

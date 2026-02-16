@@ -9,7 +9,24 @@
       "Bash(git commit -m \"$\\(cat <<''EOF''\nWriting modes and typography overhaul\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git tag:*)",
       "Bash(python3 -c \" import sys, json for line in sys.stdin: line = line.strip\\(\\) if not line: continue try: obj = json.loads\\(line\\) msg = obj.get\\(''message'', {}\\) # Handle assistant messages with text content if isinstance\\(msg, dict\\): content = msg.get\\(''content'', ''''\\) if isinstance\\(content, list\\): for block in content: if isinstance\\(block, dict\\) and block.get\\(''type''\\) == ''text'': text = block.get\\(''text'', ''''\\) # Filter for lines that contain our keywords for l in text.split\\(''\\\\n''\\): import re if re.search\\(r''\\(recommend|improvement|feature|roadmap|upgrade|future|could add|nice to have|priority|backlog|phase \\\\d|enhancement|suggestion|next steps|planned|proposal\\)'', l, re.IGNORECASE\\): print\\(l.strip\\(\\)\\) elif isinstance\\(content, str\\): for l in content.split\\(''\\\\n''\\): import re if re.search\\(r''\\(recommend|improvement|feature|roadmap|upgrade|future|could add|nice to have|priority|backlog|phase \\\\d|enhancement|suggestion|next steps|planned|proposal\\)'', l, re.IGNORECASE\\): print\\(l.strip\\(\\)\\) except: pass \")",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(npm install:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm run build:lib:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(git -C /Users/cyrus/Code/codemirror-for-writers status)",
+      "Bash(git -C /Users/cyrus/Code/codemirror-for-writers diff --stat)",
+      "Bash(git -C /Users/cyrus/Code/codemirror-for-writers log --oneline -3)",
+      "Bash(git -C /Users/cyrus/Code/codemirror-for-writers add lib/extensions/word-count.js lib/index.js lib/theme/base.js lib/theme/dark.js lib/theme/light.js demo/main.js demo/toolbar.js)",
+      "Bash(git -C:*)",
+      "Bash(git -C /Users/cyrus/Code/codemirror-for-writers push)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git rm:*)",
+      "Bash(npm pack:*)",
+      "Bash(timeout 8 npm run dev:*)",
+      "Bash(npx vite build:*)",
+      "Bash(node -e:*)"
     ]
   }
 }

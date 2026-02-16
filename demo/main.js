@@ -8,6 +8,7 @@ import {
   toggleTypewriter,
   toggleFocusMode,
   toggleWordCount,
+  toggleFrontmatterSheet,
   tagAutocomplete,
   createNoteIndex,
   resolveWikiLink,
@@ -92,6 +93,7 @@ const state = EditorState.create({
       onBacklinkClick: (backlink) => {
         console.info('Backlink clicked', backlink);
       },
+      frontmatterKeys: ['title', 'date', 'tags', 'author', 'description', 'draft', 'category', 'slug', 'image', 'published'],
     }),
 
     // Autocomplete: wiki links + tags combined into one autocompletion() call
@@ -136,6 +138,7 @@ const state = EditorState.create({
       onToggleTypewriter: (view) => toggleTypewriter(view),
       onToggleFocusMode: (view) => toggleFocusMode(view),
       onToggleWordCount: (view) => toggleWordCount(view),
+      onToggleFrontmatterSheet: (view) => toggleFrontmatterSheet(view),
     }),
   ],
 });
