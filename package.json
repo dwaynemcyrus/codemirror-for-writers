@@ -1,6 +1,6 @@
 {
   "name": "codemirror-for-writers",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "type": "module",
   "description": "A CodeMirror 6 extension for hybrid markdown editing - shows rendered preview for unfocused lines and raw markdown for the line being edited",
   "main": "./dist/index.cjs",
@@ -12,8 +12,7 @@
     }
   },
   "files": [
-    "dist",
-    "lib"
+    "dist"
   ],
   "scripts": {
     "dev": "vite demo",
@@ -37,12 +36,17 @@
     "wiki-links",
     "frontmatter"
   ],
-  "author": "",
+  "author": "Dwayne M Cyrus (https://github.com/dwaynemcyrus)",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/dwaynemcyrus/codemirror-for-writers"
   },
+  "bugs": {
+    "url": "https://github.com/dwaynemcyrus/codemirror-for-writers/issues"
+  },
+  "homepage": "https://dwaynemcyrus.github.io/codemirror-for-writers/",
+  "sideEffects": false,
   "peerDependencies": {
     "@codemirror/commands": "^6.0.0",
     "@codemirror/lang-markdown": "^6.0.0",

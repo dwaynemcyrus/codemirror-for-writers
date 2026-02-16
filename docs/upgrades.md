@@ -14,8 +14,18 @@ Feature recommendations for combining Bear's writing experience, Obsidian's prop
 - [x] **Smooth Preview Transitions** - CSS fade-in animations on preview/focus state changes *(v1.9.0)*
 - [x] **Link Autocomplete Enhancement** - Wiki-link autocomplete promoted to first-class library export *(v1.9.0)*
 - [x] **Backlinks / Linked Mentions API** - Bottom panel with async `onBacklinksRequested(docTitle)` resolver *(v1.9.0)*
+- [x] **More Menu** - `moreMenu()` extension: top-right `⋯` button with dropdown toggles for theme, mode, read-only, typewriter, focus, word count, properties *(v1.10.0)*
+- [x] **Bottom Toolbar Overscroll Fix** - `overscroll-behavior-x: contain` + JS touchmove fallback prevents iOS swipe-back at scroll edges *(v1.10.0)*
 
 ## Not Yet Implemented
+
+### npm Publishing Improvements
+
+| # | Improvement | Notes |
+|---|-------------|-------|
+| — | TypeScript declarations | Generate `.d.ts` files (via JSDoc or hand-written) and add `"types"` to `package.json`. Enables autocomplete for TS consumers. |
+| — | `CHANGELOG.md` in npm tarball | Add `"CHANGELOG.md"` to `files` array so consumers can see release notes. |
+| — | Provenance attestation | Run `npm publish --provenance` from GitHub Actions for supply-chain trust. |
 
 ### Lower Priority
 
