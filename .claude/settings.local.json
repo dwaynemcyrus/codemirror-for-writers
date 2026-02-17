@@ -29,7 +29,8 @@
       "Bash(node -e:*)",
       "Bash(xargs:*)",
       "Bash(npx playwright test:*)",
-      "Bash(node -c:*)"
+      "Bash(node -c:*)",
+      "Bash(lsof:*)"
     ]
   }
 }
