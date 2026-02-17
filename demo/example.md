@@ -87,6 +87,50 @@ Here is a footnote reference[^note].
 
 > This is a blockquote. It can span multiple lines and contain **formatted** text.
 
+### Callouts / Admonitions
+
+> [!note] A simple note
+> This is a basic callout using the **note** type.
+
+> [!tip] Helpful tip
+> Callouts support *inline formatting*, `code`, and [[Project Plan|wiki links]].
+
+> [!info]
+> When no title is given, the type name is used as the title.
+
+> [!abstract] Summary
+> Abstracts highlight key takeaways from a section.
+
+> [!success] Task complete
+> All tests are passing.
+
+> [!question] FAQ
+> How do callouts work? Just use `> [!type] Title` syntax.
+
+> [!warning] Be careful
+> This action cannot be undone.
+
+> [!failure] Build failed
+> Missing dependency: `katex` is not installed.
+
+> [!danger] Critical error
+> Data loss may occur if you continue.
+
+> [!bug] Known issue
+> The widget flickers when resizing the window.
+
+> [!example] Usage example
+> Use callouts to draw attention to important content.
+
+> [!quote] Albert Einstein
+> Imagination is more important than knowledge.
+
+> [!tip]- Collapsed by default
+> Click the title bar to expand this callout.
+
+> [!warning]+ Expanded by default
+> This callout starts open but can be collapsed.
+
 ### Links and Images
 
 Check out [codemirror-markdown-hybrid](https://github.com/tiagosimoes/codemirror-markdown-hybrid) for more information

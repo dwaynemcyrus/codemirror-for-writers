@@ -62,10 +62,29 @@ const view = new EditorView({ state, parent: document.body });
 Most advanced features are opt-in. Start with `hybridMarkdown()` defaults (hybrid preview + bottom toolbar enabled), then enable only what your app needs.
 
 ### Hybrid Preview
-Unfocused lines render as formatted markdown (headings, bold, italic, links, images, code blocks, tables, task lists). Click a line to edit the raw markdown. Transitions are animated with smooth fade-ins.
+Unfocused lines render as formatted markdown — click a line to edit the raw markdown, click away to see the preview. Transitions are animated with smooth fade-ins.
 
-### Collapsible Headings
-Click the chevron next to any heading to collapse or expand the section beneath it.
+**Supported inline formatting:** bold, italic, strikethrough, inline code, links, images, highlight (`==text==`), subscript (`H~2~O`), superscript (`x^2^`), emoji shortcodes (`:smile:` → 😄)
+
+### Block Elements
+- **Headings** (H1–H6) with optional IDs (`## Title {#custom-id}`)
+- **Collapsible headings** — click the chevron to collapse/expand sections
+- **Code blocks** with syntax highlighting (JavaScript, Python, CSS, HTML, JSON, and more)
+- **Tables** — full GFM table rendering with alignment support
+- **Blockquotes** — styled with left border and italic text
+- **Lists** — bullet, numbered, and task lists (`- [x]` checkboxes)
+- **Horizontal rules** (`---`, `***`, `___`)
+- **Definition lists** (`Term` followed by `: Definition`)
+- **Footnotes** — `[^id]` references with multi-line `[^id]: ...` definitions
+- **Math blocks** with KaTeX (`$inline$` and `$$block$$`) — requires `katex`
+- **Mermaid diagrams** — rendered from fenced `mermaid` code blocks — requires `mermaid`
+
+### Callouts / Admonitions
+Obsidian-style callout blocks using `> [!type] Title` syntax. Each type has a unique icon and color. Click into a callout to edit the raw markdown; click away to see the rendered preview.
+
+**Supported types:** `note`, `abstract` (aliases: `summary`, `tldr`), `info`, `tip` (aliases: `hint`, `important`), `success` (aliases: `check`, `done`), `question` (aliases: `help`, `faq`), `warning` (aliases: `caution`, `attention`), `failure` (aliases: `fail`, `missing`), `danger` (alias: `error`), `bug`, `example`, `quote` (alias: `cite`)
+
+**Fold modifiers:** `> [!tip]- Collapsed title` starts collapsed; `> [!tip]+ Expanded title` starts expanded (same as default). Unrecognized types fall back to `note`.
 
 ### Inline Image Preview
 `![alt](url)` lines render as actual images when unfocused. Click to edit the raw markdown.
@@ -77,7 +96,7 @@ Click the chevron next to any heading to collapse or expand the section beneath 
 `#tag` and `#tag/subtag` are rendered as styled pills in preview. Provide an `onTagClick` handler for click behavior.
 
 ### YAML Frontmatter Editor
-YAML frontmatter blocks render as a structured key-value property table when unfocused. Click to edit raw YAML.
+YAML frontmatter blocks render as a structured key-value property table when unfocused. Supports inline editing of values, tag arrays, booleans, and adding/removing keys. A slide-down properties sheet is also available.
 
 ### Writing Modes
 - **Typewriter Mode** — keeps the active line vertically centered as you type
@@ -85,29 +104,28 @@ YAML frontmatter blocks render as a structured key-value property table when unf
 - **Writing Mode Sheet** — a unified panel to toggle typewriter and focus modes together
 
 ### Word Count Panel
-Toggleable status bar showing live word count, character count, and estimated reading time.
+Toggleable status bar showing live word count, character count, and estimated reading time. Displays selection-specific counts when text is selected.
 
 ### Backlinks Panel
 Optional bottom panel showing incoming links to the current document. Enable with `backlinks: true` and provide async `onBacklinksRequested(title)` to load data from your app.
 
 ### Custom Task Types
-Beyond standard `[x]` checkboxes, supports emoji-based task types: `[i]` info, `[!]` important, `[?]` question, `[*]` star, `[>]` forward, `[<]` schedule. Task types cycle on click.
+Beyond standard `[x]` checkboxes, supports emoji-based task types: `[i]` idea, `[!]` urgent, `[?]` question, `[*]` important, `[>]` forwarded, `[<]` scheduled. Task types cycle on click.
 
 ### Bottom Toolbar
-Mobile-friendly formatting toolbar at the bottom of the editor with undo/redo, text formatting, lists, and more. Enabled by default in `hybridMarkdown()`. Horizontally scrollable with overscroll containment to prevent browser navigation gestures.
+Mobile-friendly formatting toolbar at the bottom of the editor with undo/redo, text formatting, lists, and more. Enabled by default. Horizontally scrollable with overscroll containment to prevent browser navigation gestures.
 
 ### More Menu
-Optional `⋯` menu extension in the top-right corner of the editor. You define all menu items (there is no built-in default item list). Checkmarks are controlled by each item's `getState(view)`.
+Optional `⋯` menu extension in the top-right corner of the editor. You define all menu items (there is no built-in default item list). Supports toggle items with checkmarks, separators, and action items.
+
+### Themes
+Light and dark themes with dynamic switching. All block elements (callouts, tables, code blocks, frontmatter, etc.) adapt to the active theme.
 
 ### Additional
-- Light and dark themes with dynamic switching
-- Syntax-highlighted code blocks (JavaScript, Python, CSS, HTML, JSON)
-- Math rendering with KaTeX (`$inline$` and `$$block$$`)
-- Mermaid diagram rendering
-- Emoji shortcodes (`:smile:` → 😄)
-- Tables, blockquotes, horizontal rules
 - Read-only mode (task toggles still work)
 - Raw markdown mode toggle
+- Find & Replace (`Ctrl/Cmd+H`)
+- Select next/all occurrences (`Ctrl/Cmd+D` / `Ctrl/Cmd+Shift+L`)
 
 ## Keyboard Shortcuts
 
