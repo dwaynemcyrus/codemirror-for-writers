@@ -81,7 +81,8 @@ YAML frontmatter blocks render as a structured key-value property table when unf
 
 ### Writing Modes
 - **Typewriter Mode** — keeps the active line vertically centered as you type
-- **Focus Mode** — dims all text except the current paragraph to 25% opacity
+- **Focus Mode** — dims all text except the current paragraph, with adjustable intensity (sentence, paragraph, or section level)
+- **Writing Mode Sheet** — a unified panel to toggle typewriter and focus modes together
 
 ### Word Count Panel
 Toggleable status bar showing live word count, character count, and estimated reading time.
@@ -110,13 +111,60 @@ Optional `⋯` menu extension in the top-right corner of the editor. You define 
 
 ## Keyboard Shortcuts
 
+**Text Formatting**
+
 | Shortcut | Action |
 |----------|--------|
 | `Ctrl/Cmd+B` | Bold |
 | `Ctrl/Cmd+I` | Italic |
-| `Ctrl/Cmd+K` | Link |
+| `Ctrl/Cmd+Shift+X` | Strikethrough |
 | `` Ctrl/Cmd+` `` | Inline code |
 | `` Ctrl/Cmd+Shift+` `` | Code block |
+| `Ctrl/Cmd+K` | Link |
+| `Ctrl/Cmd+Shift+I` | Insert image |
+
+**Headings**
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd+1` | Heading 1 |
+| `Ctrl/Cmd+2` | Heading 2 |
+| `Ctrl/Cmd+3` | Heading 3 |
+
+**Lists**
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd+Shift+8` | Bullet list |
+| `Ctrl/Cmd+Shift+7` | Numbered list |
+| `Ctrl/Cmd+Shift+9` | Task list |
+
+**Block Elements**
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd+Shift+.` | Blockquote |
+
+**Selection**
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd+D` | Select next occurrence |
+| `Ctrl/Cmd+Shift+L` | Select all occurrences |
+
+**Search**
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd+F` | Find (built-in) |
+| `Ctrl/Cmd+H` | Find & Replace |
+
+**Writing Modes**
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd+Shift+T` | Toggle typewriter mode |
+| `Ctrl/Cmd+Shift+F` | Toggle focus mode |
 
 ## API
 
